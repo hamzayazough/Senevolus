@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +11,7 @@ import { SignInComponent } from '../pages/sign-in/sign-in.component';
 import { CreateProfileComponent } from '../pages/create-profile/create-profile.component';
 import { AppHeaderComponent } from '../common/app-header/app-header.component';
 import { TaskComponent } from '../common/task/task.component';
+import { provideAuth0 } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -16,16 +20,20 @@ import { TaskComponent } from '../common/task/task.component';
     SignInComponent,
     CreateProfileComponent,
     AppHeaderComponent,
-    TaskComponent
+    TaskComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAuth0({
+      domain: 'dev-ibta2mockraiqpl3.us.auth0.com',
+      clientId: 'qFnDGnuvJx22LvmoEgmja8UYyGrjJdR4',
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+        audience: 'https://dev-ibta2mockraiqpl3.us.auth0.com/api/v2/',
+      },
+    }),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
