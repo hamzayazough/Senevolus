@@ -12,6 +12,7 @@ import { CreateProfileComponent } from '../pages/create-profile/create-profile.c
 import { AppHeaderComponent } from '../common/app-header/app-header.component';
 import { TaskComponent } from '../common/task/task.component';
 import { provideAuth0 } from '@auth0/auth0-angular';
+import { AuthBtnComponent } from './auth-btn/auth-btn.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { provideAuth0 } from '@auth0/auth0-angular';
     CreateProfileComponent,
     AppHeaderComponent,
     TaskComponent,
+    AuthBtnComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [

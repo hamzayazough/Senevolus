@@ -26,6 +26,6 @@ export class ProfileService {
   }
 
   public updateUser(user: AppUser): Observable<AppUser> {
-    return this.http.put<AppUser>(`${this.baseUrl}/${user.id}`, user);
+    return this.http.put<AppUser>(`${this.baseUrl}/${user._id}`, user);
   }
 }
