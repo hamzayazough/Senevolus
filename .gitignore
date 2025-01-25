@@ -1,0 +1,25 @@
+# Global Python ignores (backend)
+backend/venv/
+*.pyc
+__pycache__/
+
+# Node.js and Angular ignores (frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.env
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor specific
+.vscode/
+.idea/
+*.iml
+
+
+.env
