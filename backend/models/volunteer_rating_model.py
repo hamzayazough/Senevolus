@@ -1,4 +1,4 @@
-from app import mongo
+from db import mongo
 
 def add_rating(rating_data):
     """Insert a new rating document into the VolunteerRating collection."""

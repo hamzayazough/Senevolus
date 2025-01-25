@@ -1,4 +1,4 @@
-from app import mongo
+from db import mongo
 
 def add_message(message_data):
     """Insert a new message document into the TaskContractMessage collection."""

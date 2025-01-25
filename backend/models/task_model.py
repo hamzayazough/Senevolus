@@ -1,4 +1,4 @@
-from app import mongo
+from db import mongo
 
 def add_task(task_data):
     """Insert a new task into the TaskRequest collection."""
