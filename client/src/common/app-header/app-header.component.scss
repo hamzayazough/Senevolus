@@ -1,0 +1,42 @@
+#header {
+    display: flex;
+    justify-content: space-between; /* Aligns the content to the edges */
+    align-items: center; /* Vertically centers the items */
+    width: 100%; /* Ensures the header fits within the container */
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  #control-icons {
+    display: flex;
+    gap: 15px; /* Adds space between the items */
+  }
+  
+  #control-icons p {
+    cursor: pointer;
+    padding: 5px;
+    text-transform: capitalize;
+    position: relative;
+  }
+  
+  #control-icons p:not(:last-child):after {
+    content: "";
+    position: absolute;
+    right: -10px; /* Adjust for spacing between the text and the line */
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #ddd; /* Line between items */
+  }
+  
+  #control-icons p:hover {
+    background-color: #e0e0e0;
+  }
+  

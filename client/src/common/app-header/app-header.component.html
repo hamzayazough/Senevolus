@@ -1,0 +1,13 @@
+<div id="header">
+<p>Logo</p>
+
+<div id="control-icons">
+    <p *ngIf="this.type=='elder'" (click)="navigate('home')">MANAGE TASK</p>
+    <p *ngIf="this.type=='elder'" (click)="navigate('home')">CREATE TASK</p>
+    <p *ngIf="this.type=='volunteer'" (click)="navigate('home')">Explore Tasks</p>
+    <p *ngIf="this.type=='volunteer'" (click)="navigate('home')">Pending Tasks</p>
+    <p *ngIf="this.type=='volunteer'" (click)="navigate('home')">Shop</p>
+    <p *ngIf="this.type=='volunteer'">Points</p>
+    <p  (click)="navigate('home')">PROFILE</p>
+</div>
+</div>

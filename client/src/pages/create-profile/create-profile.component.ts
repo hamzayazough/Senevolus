@@ -29,5 +29,4 @@ export class CreateProfileComponent {
     console.log("file changed")
   }
 
-  home
 }
