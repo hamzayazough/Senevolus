@@ -7,7 +7,7 @@ import { HomeComponent } from '../pages/home/home.component';
 import { SignInComponent } from '../pages/sign-in/sign-in.component';
 import { CreateProfileComponent } from '../pages/create-profile/create-profile.component';
 import { AppHeaderComponent } from '../common/app-header/app-header.component';
-import { TaskComponent } from '../task/task.component';
+import { TaskComponent } from '../common/task/task.component';
 
 @NgModule({
   declarations: [
