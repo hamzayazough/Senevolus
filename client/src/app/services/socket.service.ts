@@ -64,11 +64,14 @@ export class SocketService {
             this.socket.on('gotListElder', (data:any) => {
                 this.tasks = data.task;
                 console.log("gottem");
+                console.log(data.task);
             });
         } else if (this.user.role == 'volunteer') {
             console.log("initializing volunteer");
             this.socket.on('gotListVolunteer', (data:any) => {
-                this.tasks = data;
+                this.tasks = data.task;
+                console.log("gottem");
+                console.log(data.task);
             });
         }
 

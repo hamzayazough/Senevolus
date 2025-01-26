@@ -1,12 +1,13 @@
 <div class="task-list">
     <app-task
       *ngFor="let task of tasks"
+      [visible]="task.status==this.section"
       [taskType]="task.type"
       [description]="task.description"
       [distance]="task.address.name"
       [creationDate]="task.date_created"
       [task_date]="task.task_date"
-      [taskStatus]="task.taskStatus"
+      [taskStatus]="task.status"
       [title]="task.title"></app-task>
 </div>
   

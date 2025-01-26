@@ -1,4 +1,4 @@
-<div class="task-container">
+<div *ngIf="visible==true" class="task-container">
     
     <div class="top-row">
         
@@ -24,13 +24,19 @@
         <div class="bottom-right">
             <!-- Status with dynamic color -->
             <div *ngIf="this.taskStatus == 'accepted'" class="chat-icon" (click)="toggleChat()">CHAT</div>
-            <div *ngIf="this.taskStatus == 'active' && this.userType == 'elder'" class="trash-icon">TRASH</div>
-            <div *ngIf="this.taskStatus == 'active' && this.userType != 'elder'"   [ngClass]="{
+            <div *ngIf="this.taskStatus == 'published' && this.userType == 'elder'" class="trash-icon">TRASH</div>
+            <div *ngIf="this.taskStatus == 'published' && this.userType != 'elder'"   [ngClass]="{
                 'status': true,
-                'status-active': taskStatus == 'active'
+                'status-active': true
             }">
-          {{ taskStatus == 'active' ? 'APPLY' : 'CANT APPLY' }}
+          {{ taskStatus == 'published' ? 'APPLY' : 'CANT APPLY' }}>
         </div>
+            <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'"   [ngClass]="{
+                'status': true,
+                'status-active': true
+            }">
+            Finish Task
+            </div>
     </div>
 
     </div>
