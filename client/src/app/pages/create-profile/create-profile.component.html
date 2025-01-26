@@ -1,30 +1,59 @@
 <app-app-header type="elder"></app-app-header>
 <div class="form-container">
-    <form (ngSubmit)="onSubmit()" #form="ngForm">
-      <div class="name-section">
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" [(ngModel)]="formData.firstName" name="firstName" placeholder="Enter First Name">
-    
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" [(ngModel)]="formData.lastName" name="lastName" placeholder="Enter Last Name">
-      </div>
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="name-section">
+      <label for="firstName">First Name:</label>
+      <input
+        type="text"
+        id="firstName"
+        [(ngModel)]="formData.firstName"
+        name="firstName"
+        placeholder="Enter First Name"
+      />
 
-      <!-- Role -->
-      <div class="radio-group">
-        <label for="category">Type of User</label>
-        <label class="radio-option">
-            <input type="radio" name="category" value="elder" (change)="onCategoryChange($event)">
-            <span class="radio-label">Elderly</span>
-        </label>
-        <label class="radio-option">
-            <input type="radio" name="category" value="volunteer" (change)="onCategoryChange($event)">
-            <span class="radio-label">Volunteer</span>
-        </label>
-      </div>
+      <label for="lastName">Last Name:</label>
+      <input
+        type="text"
+        id="lastName"
+        [(ngModel)]="formData.lastName"
+        name="lastName"
+        placeholder="Enter Last Name"
+      />
+    </div>
+
+    <!-- Role -->
+    <div class="name-section">
+      <label for="category" style="margin-bottom: 10px; display: block"
+        >Type of User</label
+      >
+    </div>
+    <div class="radio-group">
+      <label class="radio-option">
+        <input
+          type="radio"
+          name="category"
+          value="elder"
+          (change)="onCategoryChange($event)"
+        />
+        <span class="radio-label">Elderly</span>
+      </label>
+      <label class="radio-option">
+        <input
+          type="radio"
+          name="category"
+          value="volunteer"
+          (change)="onCategoryChange($event)"
+        />
+        <span class="radio-label">Volunteer</span>
+      </label>
+    </div>
 
     <!-- Age -->
     <div class="form-group">
-      <label for="age">Age:</label>
+      <div class="name-section">
+        <label for="age">Age</label>
+      </div>
+
       <input
         type="number"
         id="age"
@@ -108,7 +137,9 @@
 
     <!-- Biography -->
     <div class="form-group">
-      <label for="biography">Biography:</label>
+      <div class="name-section">
+        <label for="biography">Biography:</label>
+      </div>
       <textarea
         id="biography"
         name="biography"
@@ -119,7 +150,9 @@
     </div>
 
     <!-- Address -->
-    <app-address-autocomplete></app-address-autocomplete>
+    <div class="name-section">
+      <app-address-autocomplete></app-address-autocomplete>
+    </div>
 
     <!-- Submit Button -->
     <div class="form-group">
