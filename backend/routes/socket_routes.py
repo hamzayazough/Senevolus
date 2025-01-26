@@ -1,69 +1,8 @@
 from flask_socketio import emit, join_room
 from flask import Flask, request
 from models.user_model import get_user_by_id, add_user
-from models.task_model import get_tasks_by_elder, get_tasks_by_volunteer, get_tasks_by_status, get_tasks_by_volunteer_and_status
-messages = [
-    {
-        'name' : 'Mina',
-        'message':'Hey',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Samuel',
-        'message':'Hey1',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Mina',
-        'message':'Hey2',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Mina',
-        'message':'Hey3',
-        'type' : 'sent'
-    }, 
-    {
-        'name' : 'Samuel',
-        'message':'Hey4',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Mina',
-        'message':'Hey',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Mina',
-        'message':'Hey',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Mina',
-        'message':'Hey',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Mina',
-        'message':'Hey',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Mina',
-        'message':'Hey',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Samuel',
-        'message':'Hey',
-        'type' : 'received'
-    }, 
-    {
-        'name' : 'Mina',
-        'message':'Hey',
-        'type' : 'received'
-    }, 
-]
+from models.task_model import get_tasks_by_elder, get_tasks_by_volunteer, get_tasks_by_status, get_tasks_by_volunteer_and_status, create_task, update_task, delete_task
+messages = []
 
 
 def socketio_handlers(socketio):
@@ -138,3 +77,44 @@ def socketio_handlers(socketio):
     @socketio.on('disconnect')
     def handle_disconnect():
         print("Client disconnected")
+
+    @socketio.on('taskCreated')
+    def createTask(data):
+        create_task(data['task'])
+        task = data['task']
+        taskList = get_tasks_by_elder(task['elder_id'])
+        print(task['elder_id'])
+        emit('gotListElder', {'task': taskList})
+
+    @socketio.on('taskAccepted')
+    def acceptTask(data):
+        updates = {
+            "volunteer_id":data['volunteer_id'],
+            "status":"accepted"
+        }
+        update_task(data['task_id'], updates)
+
+        taskList = get_tasks_by_elder(data['elder_id'])
+        emit('gotListElder', {'task': taskList})
+
+        taskListPending = get_tasks_by_status("published")
+        taskListAccepted = get_tasks_by_volunteer_and_status(data['volunteer_id'],"accepted")
+        emit('gotListVolunteer', {'task': taskListPending + taskListAccepted})
+
+
+    @socketio.on('taskRemoved')
+    def removeTask(data):
+        delete_task(data['task_id'])
+        
+        taskList = get_tasks_by_elder(data['elder_id'])
+        emit('gotListElder', {'task': taskList})
+
+        taskListPending = get_tasks_by_status("published")
+        taskListAccepted = get_tasks_by_volunteer_and_status(data['volunteer_id'],"accepted")
+        emit('gotListVolunteer', {'task': taskListPending + taskListAccepted})
+
+
+    
+
+
+

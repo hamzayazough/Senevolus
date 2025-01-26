@@ -1,38 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+
+// Color Variables
+$pastel-blue: #a2d5f2; // Light blue
+$pastel-purple: #cabbe9; // Light purple
+$white: #ffffff;
+$light-gray: #0000007d;
+$dark-gray: #333333;
+
+// Auth Container
 .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(to bottom right, #2196f3, #e3f2fd);
-    padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom right,
+    $pastel-purple,
+    $pastel-blue
+  ); // Pastel gradient
+  padding: 16px;
+  overflow:hidden;
+}
+
+// Big Modern Title Above the Box
+.auth-title {
+  font-family: "Poppins", sans-serif; // Modern font
+  font-size: 4em; // Very large font size
+  font-weight: 600; // Bold
+  color: rgb(150, 120, 137); // White color for contrast
+  margin-bottom: 20px; // Space between title and card
+  text-align: center;
+  text-transform: uppercase; // Uppercase for a modern look
+  letter-spacing: 2px; // Slight letter spacing for elegance
+}
+
+// Auth Card
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Soft shadow
+  border-radius: 12px;
+  background: $pastel-purple; // White background for the card
+}
+
+// Auth Form
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// Form Fields
+.form-field {
+  width: 100%;
+
+  .mat-form-field-outline {
+    color: $pastel-blue; // Pastel blue outline
   }
-  
-  .auth-card {
-    width: 100%;
-    max-width: 400px;
-    padding: 24px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    background: #eccaca;
+
+  .mat-form-field-label {
+    color: $pastel-purple; // Pastel purple for labels
   }
-  
-  .auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+
+  .mat-input-element {
+    color: $dark-gray; // Dark gray for input text
   }
-  
-  .form-field {
-    width: 100%;
+}
+
+// Button Container
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; // Space between buttons
+
+  button {
+    flex: 1; // Equal width for buttons
+    font-weight: 500; // Medium weight
+    border-radius: 8px; // Rounded corners
+    transition: transform 0.2s ease, background-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px); // Slight lift on hover
+    }
+
+    &[color="primary"] {
+      background-color: $pastel-blue; // Pastel blue for primary button
+      color: $dark-gray;
+    }
+
+    &[color="accent"] {
+      background-color: $pastel-purple; // Pastel purple for accent button
+      color: $dark-gray;
+    }
   }
-  
-  .button-container {
-    display: flex;
-    justify-content: space-between;
+}
+
+// Logout Container
+.logout-container {
+  text-align: center;
+  margin-top: 16px;
+
+  p {
+    font-size: 1.2em;
+    color: $dark-gray;
   }
-  
-  .logout-container {
-    text-align: center;
-    margin-top: 16px;
+
+  button {
+    background-color: #ff6b6b; // Soft red for logout button
+    color: $white;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px); // Slight lift on hover
+    }
   }
-  
+}
+
+// Home Button (Logged In)
+.mat-card-actions {
+  display: flex;
+  justify-content: center;
+
+  button {
+    background-color: $pastel-blue; // Pastel blue for home button
+    color: $dark-gray;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px); // Slight lift on hover
+    }
+  }
+}
+
+// Form Fields
+.form-field {
+  width: 100%;
+
+  .mat-form-field-outline {
+    color: $pastel-blue; // Pastel blue outline
+  }
+
+  .mat-form-field-label {
+    color: $pastel-purple; // Pastel purple for labels
+  }
+
+  .mat-input-element {
+    color: $dark-gray; // Dark gray for input text
+    background-color: red; // Ensure background is white
+  }
+
+  input {
+    color: black; // Ensure input text is dark gray
+  }
+}

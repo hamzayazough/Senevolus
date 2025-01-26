@@ -19,23 +19,23 @@
     <div class="image-radio">
       <label for="category">Category</label>
       <label>
-        <input type="radio" name="category" value="mental" />
+        <input type="radio" (change)="onCategoryChange($event)" name="category" value="moral" />
         <img src="assets/images/brain-logo.png" class="logo" alt="Mental Support" />
       </label>
       <label>
-        <input type="radio" name="category" value="physical" />
+        <input type="radio" (change)="onCategoryChange($event)" name="category" value="physical" />
         <img src="assets/images/muscle-logo.png" class="logo" alt="Physical Support" />
       </label>
     </div>
 
     <!-- Description -->
     <div class="form-group">
-      <label for="description">Explain what you need help for...</label>
+      <label for="description">Description</label>
       <textarea
         id="description"
         name="description"
         [(ngModel)]="taskData.description"
-        placeholder="Enter task description"
+        placeholder="Explain what you need help for..."
         rows="4"
         required
       ></textarea>

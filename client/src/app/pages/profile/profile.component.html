@@ -1,22 +1,19 @@
 <app-app-header type="volunteer"></app-app-header>
+
 <div class="profile-container">
   <img src={{this.photo_id}} alt="Profile Picture" class="profile-pic">
 
   <form class="profile-form">
     <div class="form-group">
-      <p class="form-label">{{this.firstName}}</p>
+      <p class="form-label">{{ firstName }} {{ lastName }}, {{ age }} years old</p>
     </div>
+
     <div class="form-group">
-      <p class="form-label">{{this.lastName}}</p>
+      <p class="form-label">{{ description }}</p>
     </div>
+
     <div class="form-group">
-      <p class="form-label">{{this.age}} years old</p>
-    </div>
-    <div class="form-group">
-      <p class="form-label">{{this.description}}</p>
-    </div>
-    <div class="form-group">
-      <button type="submit" class="submit-button">Submit</button>
+      <button type="submit" class="logout-button">Logout</button>
     </div>
   </form>
 </div>

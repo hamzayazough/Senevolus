@@ -111,6 +111,7 @@ export class CreateProfileComponent implements AfterViewInit {
   nextStep() {
     if (this.step === 1 && this.idPhoto) {
       this.step = 2;
+      this.startCamera();
     }
   }
 

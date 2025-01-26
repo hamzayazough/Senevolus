@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { ChatService } from '../../services/chat-service/chat-service.service';
 import { SocketService } from '../../services/socket.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EndTaskDialogComponent } from '../../end-task-dialog/end-task-dialog.component';
 
 @Component({
   selector: 'app-task',
@@ -20,15 +22,19 @@ export class TaskComponent {
   @Input() taskStatus !: string;
   @Input() title : string = "TITRE BIDON";
   @Input() visible : boolean = true;
+  @Input() _id : string = '';
+  @Input() elder_id : string = '';
+  @Input() volunteer_id : string = '';
+
   get userType() {
     return this.socket.user.role;
   }
 
-
   constructor(
     private router : Router,
     private chatService : ChatService,
-    private socket : SocketService
+    private socket : SocketService,
+    private dialog : MatDialog,
   ) {
       console.log(this.distance);
   }
@@ -38,6 +44,21 @@ export class TaskComponent {
 
   toggleChat() {
     this.chatService.toggleChat();
+  }
+
+  acceptTask() {
+    this.socket.send('taskAccepted', {volunteer_id : this.socket.UID, task_id:this._id, elder_id:this.elder_id} )
+  }
+
+  removeTask() {
+    console.log("REMOVE")
+    this.socket.send('taskRemoved', {elder_id : this.socket.UID, task_id:this._id, volunteer_id:this.volunteer_id} )
+  }
+
+  completeTask() {
+    this.dialog.open(EndTaskDialogComponent, {
+      data: { message: 'HEY BOZO' },
+    });
   }
 
 }

@@ -63,7 +63,7 @@
     </div>
 
     <div *ngIf="step === 1">
-      <h2>Take ID Photo</h2>
+      <h2>Take ID Photo (1/2)</h2>
       <video #videoElement autoplay></video>
       <canvas #canvasElement style="display: none"></canvas>
       <button type="button" (click)="startCamera()">Start Camera</button>
@@ -73,7 +73,7 @@
     </div>
 
     <div *ngIf="step === 2">
-      <h2>Take Person Photo</h2>
+      <h2>Take Person Photo (2/2)</h2>
       <video #videoElement autoplay></video>
       <canvas #canvasElement style="display: none"></canvas>
       <button type="button" (click)="startCamera()">Start Camera</button>

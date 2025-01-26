@@ -40,7 +40,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { UploadSuccessComponent } from './pages/create-profile/upload-success/upload-success.component';
+import { EndTaskDialogComponent } from './end-task-dialog/end-task-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+
 
 const firebaseApp = initializeApp(environment.firebaseConfig);
 const auth = getAuth(firebaseApp);
@@ -61,6 +63,7 @@ const auth = getAuth(firebaseApp);
     ShopProductComponent,
     CreateTaskComponent,
     AddressAutocompleteComponent,
+    EndTaskDialogComponent,
     UploadSuccessComponent,
   ],
   imports: [

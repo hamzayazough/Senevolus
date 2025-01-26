@@ -1,7 +1,9 @@
 from db import mongo
+import uuid
 
 def create_task(task_data):
     """Insert a new task into the TaskRequest collection."""
+    task_data['_id'] = str(uuid.uuid4())
     mongo.db.TaskRequest.insert_one(task_data)
 
 def get_tasks_by_status(status):
