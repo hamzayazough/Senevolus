@@ -1,6 +1,7 @@
 <div class="task-list">
     <app-task
       *ngFor="let task of tasks"
+      [_id]="task._id"
       [visible]="task.status==this.section"
       [taskType]="task.type"
       [description]="task.description"
@@ -9,6 +10,7 @@
       [task_date]="task.task_date"
       [taskStatus]="task.status"
       [duration]="task.hour_duration"
+      [elder_id]="task.elder_id"
       [title]="task.title"></app-task>
 </div>
   

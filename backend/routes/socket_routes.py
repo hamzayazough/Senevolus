@@ -1,7 +1,7 @@
 from flask_socketio import emit, join_room
 from flask import Flask, request
 from models.user_model import get_user_by_id, add_user
-from models.task_model import get_tasks_by_elder, get_tasks_by_volunteer, get_tasks_by_status, get_tasks_by_volunteer_and_status, create_task
+from models.task_model import get_tasks_by_elder, get_tasks_by_volunteer, get_tasks_by_status, get_tasks_by_volunteer_and_status, create_task, update_task
 messages = [
     {
         'name' : 'Mina',
@@ -146,5 +146,23 @@ def socketio_handlers(socketio):
         taskList = get_tasks_by_elder(task['elder_id'])
         print(task['elder_id'])
         emit('gotListElder', {'task': taskList})
+
+    @socketio.on('taskAccepted')
+    def acceptTask(data):
+        updates = {
+            "volunteer_id":data['volunteer_id'],
+            "status":"accepted"
+        }
+        update_task(data['task_id'], updates)
+
+        taskList = get_tasks_by_elder(data['elder_id'])
+        emit('gotListElder', {'task': taskList})
+
+        taskListPending = get_tasks_by_status("published")
+        taskListAccepted = get_tasks_by_volunteer_and_status(data['volunteer_id'],"accepted")
+        emit('gotListVolunteer', {'task': taskListPending + taskListAccepted}, to=request.sid)
+
+    
+
 
 

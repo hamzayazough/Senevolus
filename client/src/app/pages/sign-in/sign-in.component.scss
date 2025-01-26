@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
 
 // Color Variables
-$pastel-blue: #A2D5F2; // Light blue
-$pastel-purple: #CABBE9; // Light purple
-$white: #FFFFFF;
-$light-gray: #F5F5F5;
+$pastel-blue: #a2d5f2; // Light blue
+$pastel-purple: #cabbe9; // Light purple
+$white: #ffffff;
+$light-gray: #f5f5f5;
 $dark-gray: #333333;
 
 // Auth Container
@@ -14,13 +14,17 @@ $dark-gray: #333333;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom right, $pastel-purple, $pastel-blue); // Pastel gradient
+  background: linear-gradient(
+    to bottom right,
+    $pastel-purple,
+    $pastel-blue
+  ); // Pastel gradient
   padding: 16px;
 }
 
 // Big Modern Title Above the Box
 .auth-title {
-  font-family: 'Poppins', sans-serif; // Modern font
+  font-family: "Poppins", sans-serif; // Modern font
   font-size: 4em; // Very large font size
   font-weight: 600; // Bold
   color: $white; // White color for contrast
@@ -103,7 +107,7 @@ $dark-gray: #333333;
   }
 
   button {
-    background-color: #FF6B6B; // Soft red for logout button
+    background-color: #ff6b6b; // Soft red for logout button
     color: $white;
     border-radius: 8px;
     transition: transform 0.2s ease, background-color 0.3s ease;
@@ -128,5 +132,28 @@ $dark-gray: #333333;
     &:hover {
       transform: translateY(-2px); // Slight lift on hover
     }
+  }
+}
+
+// Form Fields
+.form-field {
+  width: 100%;
+
+  .mat-form-field-outline {
+    color: $pastel-blue; // Pastel blue outline
+  }
+
+  .mat-form-field-label {
+    color: $pastel-purple; // Pastel purple for labels
+  }
+
+  .mat-input-element {
+    color: $dark-gray; // Dark gray for input text
+    background-color: $white; // Ensure background is white
+  }
+
+  input {
+    color: $dark-gray; // Ensure input text is dark gray
+    background-color: $white; // Ensure input background is white
   }
 }

@@ -20,6 +20,9 @@ export class TaskComponent {
   @Input() taskStatus !: string;
   @Input() title : string = "TITRE BIDON";
   @Input() visible : boolean = true;
+  @Input() _id : string = '';
+  @Input() elder_id : string = '';
+
   get userType() {
     return this.socket.user.role;
   }
@@ -38,6 +41,10 @@ export class TaskComponent {
 
   toggleChat() {
     this.chatService.toggleChat();
+  }
+
+  acceptTask() {
+    this.socket.send('taskAccepted', {volunteer_id : this.socket.UID, task_id:this._id, elder_id:this.elder_id} )
   }
 
 }

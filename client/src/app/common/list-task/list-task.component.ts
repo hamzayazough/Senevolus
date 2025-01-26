@@ -18,7 +18,9 @@ export class ListTaskComponent {
       status: TaskStatus.ACTIVE,
       userType: UserType.ELDER,
       title: 'Titre Bidon',
-      hour_duration: 1
+      hour_duration: 1,
+      _id: '',
+      elder_id:''
     }
   ];
   @Input() section : string = '';
