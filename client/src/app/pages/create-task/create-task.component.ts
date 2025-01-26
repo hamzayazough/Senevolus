@@ -46,11 +46,16 @@ export class CreateTaskComponent {
     return roundedDiff;
   }
 
+  onCategoryChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.taskData.type = target.value;
+    console.log('Selected type:', this.taskData.type);
+  }
    onSubmit() {
     this.taskData.elder_id = this.socket.UID;
     this.taskData.hour_duration = this.getHourDifference(this.taskData.timeEnd, this.taskData.starting_hour);
-    console.log(this.taskData);
-    //this.socket.send('taskCreated', ({task:this.taskData}));
-    //this.router.navigate([AppRoute.MANAGETASK])
+    this.taskData.status = 'published';
+    this.socket.send('taskCreated', ({task:this.taskData}));
+    this.router.navigate([AppRoute.HOMEELDER]);
   }
 }

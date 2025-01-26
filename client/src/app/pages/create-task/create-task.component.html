@@ -16,18 +16,16 @@
     </div>
 
     <!-- Category -->
-    <div class="form-group">
-      <label>Category</label>
-      <div class="image-radio">
-        <label>
-          <input type="radio" name="category" value="mental" />
-          <img src="assets/images/brain_logo.jpg" class="logo" alt="Mental Support" />
-        </label>
-        <label>
-          <input type="radio" name="category" value="physical" />
-          <img src="assets/images/muscle_logo.jpg" class="logo" alt="Physical Support" />
-        </label>
-      </div>
+    <div class="image-radio">
+      <label for="category">Category</label>
+      <label>
+        <input type="radio" (change)="onCategoryChange($event)" name="category" value="moral" />
+        <img src="assets/images/brain-logo.png" class="logo" alt="Mental Support" />
+      </label>
+      <label>
+        <input type="radio" (change)="onCategoryChange($event)" name="category" value="physical" />
+        <img src="assets/images/muscle-logo.png" class="logo" alt="Physical Support" />
+      </label>
     </div>
 
     <!-- Description -->

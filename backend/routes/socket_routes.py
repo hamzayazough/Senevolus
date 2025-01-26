@@ -1,7 +1,7 @@
 from flask_socketio import emit, join_room
 from flask import Flask, request
 from models.user_model import get_user_by_id, add_user
-from models.task_model import get_tasks_by_elder, get_tasks_by_volunteer, get_tasks_by_status, get_tasks_by_volunteer_and_status
+from models.task_model import get_tasks_by_elder, get_tasks_by_volunteer, get_tasks_by_status, get_tasks_by_volunteer_and_status, create_task
 messages = [
     {
         'name' : 'Mina',
@@ -138,3 +138,13 @@ def socketio_handlers(socketio):
     @socketio.on('disconnect')
     def handle_disconnect():
         print("Client disconnected")
+
+    @socketio.on('taskCreated')
+    def createTask(data):
+        create_task(data['task'])
+        task = data['task']
+        taskList = get_tasks_by_elder(task['elder_id'])
+        print(task['elder_id'])
+        emit('gotListElder', {'task': taskList})
+
+
