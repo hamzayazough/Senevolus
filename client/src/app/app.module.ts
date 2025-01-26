@@ -57,6 +57,7 @@ const auth = getAuth(firebaseApp);
     ShopComponent,
     ShopProductComponent,
     CreateTaskComponent,
+    AddressAutocompleteComponent,
   ],
   imports: [
     BrowserModule,
