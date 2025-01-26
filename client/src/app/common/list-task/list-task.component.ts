@@ -15,9 +15,11 @@ export class ListTaskComponent {
       address: {name:'string'},
       date_created: new Date(2025, 0, 15),
       task_date: new Date(2025, 0, 25),
-      taskStatus: TaskStatus.ACTIVE,
+      status: TaskStatus.ACTIVE,
       userType: UserType.ELDER,
-      title: 'Titre Bidon'
+      title: 'Titre Bidon',
+      hour_duration: 1
     }
   ];
+  @Input() section : string = '';
 }

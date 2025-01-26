@@ -3,10 +3,10 @@
     <mat-sidenav-content class="leftNavContainer">
         <mat-tab-group mat-stretch-tabs mat-align-tabs="center">
             <mat-tab label="Explore tasks">
-                <app-list-task class="task-list"></app-list-task>
+                <app-list-task [section]="'published'" [tasks]="this.tasks" class="task-list"></app-list-task>
             </mat-tab>
             <mat-tab label="My active tasks">
-                <app-list-task class="task-list"></app-list-task>
+                <app-list-task [section]="'accepted'" [tasks]="this.tasks" class="task-list"></app-list-task>
             </mat-tab>
         </mat-tab-group>
     

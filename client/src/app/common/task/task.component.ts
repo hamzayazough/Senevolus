@@ -16,9 +16,10 @@ export class TaskComponent {
   @Input() distance : string = '';
   @Input() creationDate : Date = new Date(2025, 0, 25, 0, 0, 0);
   @Input() task_date : Date = new Date(2025, 0, 26, 0, 0, 0);
-  @Input() duration : string = '';
-  @Input() taskStatus : string = TaskStatus.ACTIVE;
+  @Input() duration : number = 0;
+  @Input() taskStatus !: string;
   @Input() title : string = "TITRE BIDON";
+  @Input() visible : boolean = true;
   get userType() {
     return this.socket.user.role;
   }
@@ -29,7 +30,7 @@ export class TaskComponent {
     private chatService : ChatService,
     private socket : SocketService
   ) {
-      
+      console.log(this.distance);
   }
   navigate(adress : string) : void {
     this.router.navigate([adress]);

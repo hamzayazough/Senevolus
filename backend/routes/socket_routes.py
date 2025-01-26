@@ -1,7 +1,7 @@
 from flask_socketio import emit, join_room
 from flask import Flask, request
 from models.user_model import get_user_by_id, add_user
-from models.task_model import get_tasks_by_elder, get_tasks_by_volunteer
+from models.task_model import get_tasks_by_elder, get_tasks_by_volunteer, get_tasks_by_status, get_tasks_by_volunteer_and_status
 messages = [
     {
         'name' : 'Mina',
@@ -67,12 +67,6 @@ messages = [
 
 
 def socketio_handlers(socketio):
-    @socketio.on('send_message')
-    def send_message(data):
-        #room = data['task_id']
-        #emit('new_message', data, to=room)
-        print(data)
-
     @socketio.on('connect_getuser')
     def connect_getuser(data):
         print("getting connect get user")
@@ -128,9 +122,9 @@ def socketio_handlers(socketio):
     
     @socketio.on('getListVolunteer')
     def getListVolunteer(data):
-        print(data)
-        taskList = get_tasks_by_volunteer(data)
-        emit('gotListVolunteer', {'task': taskList}, to=request.sid)
+        taskListPending = get_tasks_by_status("published")
+        taskListAccepted = get_tasks_by_volunteer_and_status(data,"accepted")
+        emit('gotListVolunteer', {'task': taskListPending + taskListAccepted}, to=request.sid)
     
     @socketio.on('getMessages')
     def getMessages():
@@ -138,7 +132,8 @@ def socketio_handlers(socketio):
 
     @socketio.on('sendMessage')
     def sendMessage(data):
-        emit('receivedMessage', data, include_self=False)
+        messages.insert(0, data)
+        emit('gotMessages', messages, broadcast=True)
 
     @socketio.on('disconnect')
     def handle_disconnect():
