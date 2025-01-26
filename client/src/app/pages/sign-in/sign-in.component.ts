@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRoute } from '../constants';
-import { AuthBtnComponent } from '../../common/auth-btn/auth-btn.component';
 
 @Component({
   selector: 'app-sign-in',

@@ -25,8 +25,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { ShopProductComponent } from './pages/shop/shop-product/shop-product.component';
 import { CreateTaskComponent } from './pages/create-task/create-task.component';
-import { provideAuth0 } from '@auth0/auth0-angular';
-import { AuthBtnComponent } from './common/auth-btn/auth-btn.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +34,6 @@ import { AuthBtnComponent } from './common/auth-btn/auth-btn.component';
     CreateProfileComponent,
     AppHeaderComponent,
     TaskComponent,
-    AuthBtnComponent,
     ListTaskComponent,
     ElderTaskPageComponent,
     ChatComponent,
@@ -58,15 +55,7 @@ import { AuthBtnComponent } from './common/auth-btn/auth-btn.component';
     provideClientHydration(),
     AuthService,
     ChatService,
-    provideAnimationsAsync(),
-    provideAuth0({
-      domain: 'dev-ibta2mockraiqpl3.us.auth0.com',
-      clientId: 'qFnDGnuvJx22LvmoEgmja8UYyGrjJdR4',
-      authorizationParams: {
-        redirect_uri: window.location.origin,
-        audience: 'https://dev-ibta2mockraiqpl3.us.auth0.com/api/v2/',
-      },
-    }),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],
 })
