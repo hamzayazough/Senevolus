@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 
-/venv/
+/backend/venv/
