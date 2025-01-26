@@ -14,18 +14,17 @@ def add_user(user_data):
 def update_user(auth0_id, updated_data):
     """Update user details."""
     try:
-        result = mongo.db.User.update_one({"auth0_id": auth0_id}, {"$set": updated_data})
-        if result.matched_count == 0:
-            return {"success": False, "message": "User not found"}
-        return {"success": True, "modified_count": result.modified_count}
+        result = mongo.db.User.update_one({"_id": auth0_id}, {"$set": updated_data})
+        return result
+
     except PyMongoError as e:
-        return {"success": False, "error": str(e)}
+        raise Exception(f"Database error: {str(e)}")
 
 # Retrieve a user by Auth0 ID
 def get_user_by_id(auth0_id):
     """Retrieve a user document by their Auth0 ID."""
     try:
-        user = mongo.db.User.find_one({"auth0_id": auth0_id})
+        user = mongo.db.User.find_one({"_id": auth0_id})
         if user:
             user["_id"] = str(user["_id"])  # Convert ObjectId to string if needed
         return {"success": True, "data": user} if user else {"success": False, "message": "User not found"}
