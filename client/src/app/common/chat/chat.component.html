@@ -4,13 +4,13 @@
         <div 
             *ngFor="let message of this.chatService.chatMessages" 
             class="message" 
-            [ngClass]="message.type"
+            [ngClass]="message.name == this.chatService.socketService.user.role ? 'sent' : 'received'"
         >
-    {{ message.message }}
-  </div>
+        <strong>{{ message.name }}:</strong> {{ message.message }}
+        </div>
     </div>
     <div class="input-container">
-        <input type="text" id="messageInput" class="message-input" placeholder="Type a message..." />
-        <button id="sendButton" class="send-button">Send</button>
+        <input type="text" [(ngModel)]="messageInput" id="messageInput" class="message-input" placeholder="Type a message..." />
+        <button id="sendButton" (click)="sendMessage()"  class="send-button">Send</button>
     </div>
 </div>

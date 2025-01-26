@@ -16,7 +16,7 @@ export class TaskComponent {
   @Input() distance : string = '';
   @Input() creationDate : Date = new Date(2025, 0, 25, 0, 0, 0);
   @Input() task_date : Date = new Date(2025, 0, 26, 0, 0, 0);
-  @Input() duration : string = '';
+  @Input() duration : number = 0;
   @Input() taskStatus !: string;
   @Input() title : string = "TITRE BIDON";
   @Input() visible : boolean = true;

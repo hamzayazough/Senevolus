@@ -67,12 +67,6 @@ messages = [
 
 
 def socketio_handlers(socketio):
-    @socketio.on('send_message')
-    def send_message(data):
-        #room = data['task_id']
-        #emit('new_message', data, to=room)
-        print(data)
-
     @socketio.on('connect_getuser')
     def connect_getuser(data):
         print("getting connect get user")
@@ -138,7 +132,8 @@ def socketio_handlers(socketio):
 
     @socketio.on('sendMessage')
     def sendMessage(data):
-        emit('receivedMessage', data, include_self=False)
+        messages.insert(0, data)
+        emit('gotMessages', messages, broadcast=True)
 
     @socketio.on('disconnect')
     def handle_disconnect():
