@@ -25,6 +25,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { ShopProductComponent } from './pages/shop/shop-product/shop-product.component';
 import { CreateTaskComponent } from './pages/create-task/create-task.component';
+import { MapBoxComponent } from './services/map-box/map-box.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CreateTaskComponent } from './pages/create-task/create-task.component';
     ProfileComponent,
     ShopComponent,
     ShopProductComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    MapBoxComponent
   ],
   imports: [
     BrowserModule,
