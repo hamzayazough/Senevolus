@@ -5,6 +5,7 @@ import { SocketService } from '../../services/socket.service';
 import { AppUser } from '../../interfaces/app-user';
 import { AddressAutocompleteComponent } from '../../common/address-autocomplete/address-autocomplete.component';
 import { Address } from '../../interfaces/address';
+import { FileUploadService } from '../../services/file-upload.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -27,7 +28,11 @@ export class CreateProfileComponent implements AfterViewInit {
   address: Address = { longitude: 0, latitude: 0, place: '' };
 
 
-  constructor(private router: Router, private socket: SocketService) {}
+  constructor(
+    private router: Router,
+    private socket: SocketService,
+    private fileUploadService: FileUploadService
+  ) {}
   onCategoryChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.role = target.value;
@@ -113,25 +118,59 @@ export class CreateProfileComponent implements AfterViewInit {
 
   onSubmit() {
     if (this.idPhoto && this.personPhoto) {
-      console.log('Captured Image:', this.capturedImage);
+      // Convert dataURL to File objects
+      const idPhotoFile = this.dataURLtoFile(this.idPhoto, 'idPhoto.png');
+      const personPhotoFile = this.dataURLtoFile(this.personPhoto, 'personPhoto.png');
+  
+      // Upload the files using the FileUploadService
+      this.fileUploadService.uploadPhotos(idPhotoFile, personPhotoFile).subscribe(
+        (response) => {
+          console.log('Upload successful:', response);
+          // Proceed with form submission
+          this.submitFormData();
+        },
+        (error) => {
+          console.error('Upload failed:', error);
+        }
+      );
+    } else {
+      console.error('Both ID photo and person photo are required.');
     }
+  }
+  
+  submitFormData() {
     this.formData._id = this.socket.UID;
     this.formData.role = this.role;
     this.formData.address = this.address;
-    console.log('Form Data:', this.formData);
+  
     this.socket.on('userCreated', (userData: AppUser) => {
       console.log(userData);
       this.socket.user = userData;
+      this.socket.initializeFetchListEvents();
       if (this.socket.user.role == 'elder') {
         this.router.navigate([AppRoute.HOMEELDER]);
       } else if (this.socket.user.role == 'volunteer') {
         this.router.navigate([AppRoute.HOMEVOLUNTEER]);
       }
     });
+  
     this.socket.send('createUser', this.formData);
   }
 
   onFileChange(event: Event) {
     console.log('file changed');
+  }
+  dataURLtoFile(dataURL: string, filename: string): File {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+  
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+  
+    return new File([u8arr], filename, { type: mime });
   }
 }

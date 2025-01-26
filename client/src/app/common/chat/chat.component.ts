@@ -9,7 +9,7 @@ import { ChatService } from '../../services/chat-service/chat-service.service';
 export class ChatComponent {
 
   constructor(
-    private chatService : ChatService
+    public chatService : ChatService
   ) {}
   
 }

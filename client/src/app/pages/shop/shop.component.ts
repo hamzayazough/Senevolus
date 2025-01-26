@@ -11,19 +11,19 @@ export class ShopComponent {
       id: 1,
       name: 'Free Coffee!',
       cost: 2000,
-      image: 'assets/images/product1.jpg'
+      image: 'assets/images/coffee_cup.png'
     },
     {
       id: 2,
       name: '1 Month Free of SouthVPN',
       cost: 5000,
-      image: 'assets/images/product2.jpg'
+      image: 'assets/images/south_vpn.png'
     },
     {
       id: 3,
       name: 'Iphone 18',
       cost: 10000000,
-      image: 'assets/images/product3.jpg'
+      image: 'assets/images/iphone_20.png'
     }
   ];
   redeem(product: any) {

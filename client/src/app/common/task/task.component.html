@@ -3,12 +3,12 @@
     <div class="top-row">
         
         <!-- Task Type (top left) -->
-        <div class="task-type">{{ taskType }}: {{taskTitle}}</div>
+        <div class="task-type">{{ taskType }}: {{title}}</div>
         
         <!-- Creation and Due Date together (top right) -->
         <div class="dates">
           <div class="date-creation">Created: {{ creationDate | date:'shortDate' }}</div>
-          <div class="date-due">Due: {{ dueDate | date:'shortDate' }}</div>
+          <div class="date-due">Due: {{ task_date | date:'shortDate' }}</div>
           <div class="duration">Duration: {{this.duration}} hours</div>
         </div>
     
@@ -20,7 +20,7 @@
     <div class="bottom-row">
 
         <!-- Distance (middle right) -->
-        <div class="distance">{{ distance }} km</div>
+        <div class="distance">{{ distance }}</div>
         <div class="bottom-right">
             <!-- Status with dynamic color -->
             <div *ngIf="this.taskStatus == 'accepted'" class="chat-icon" (click)="toggleChat()">CHAT</div>
