@@ -15,6 +15,32 @@ body {
   min-height: 100vh;
 }
 
+// Page Container
+.page-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: calc(100vh - 60px); // Adjust based on header height
+  padding: 0 20px;
+}
+
+// Sidebars
+.sidebar {
+  width: 15%;
+  height: 80vh;
+  background: linear-gradient(to bottom, $light-purple, $light-blue);
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  &.left-sidebar {
+    margin-right: 20px;
+  }
+
+  &.right-sidebar {
+    margin-left: 20px;
+  }
+}
+
 // Profile Container
 .profile-container {
   max-width: 500px; // Slightly narrower for a cleaner look
@@ -23,23 +49,25 @@ body {
   background-color: $white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex-grow: 1;
 
   .profile-pic {
-    width: 150px; /* Adjust the size as needed */
-    height: 150px; /* Adjust the size as needed */
-    border-radius: 50%; /* Makes the image circular */
-    object-fit: cover; /* Ensures the image covers the container */
-    border: 2px solid #ddd; /* Optional: Adds a border around the image */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
-    display: block; /* Ensures the image is displayed as a block element */
-    margin: 0 auto; /* Centers the image horizontally */
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin: 0 auto 20px;
   }
 
   // Form Styles
   .profile-form {
     display: flex;
     flex-direction: column;
-    gap: 20px; // Consistent spacing
+    gap: 20px;
 
     .form-group {
       display: flex;
@@ -47,26 +75,26 @@ body {
       gap: 5px;
 
       .form-label {
-        font-size: 1.1em; // Slightly smaller font
+        font-size: 1.1em;
         color: $dark-gray;
         margin: 0;
-        font-weight: 400; // Lighter font weight
+        font-weight: 400;
       }
     }
 
-    // Submit Button
-    .submit-button {
+    // Logout Button
+    .logout-button {
       background-color: $light-blue;
       color: $dark-gray;
       border: none;
       padding: 10px 20px;
-      font-size: 1em; // Smaller font
+      font-size: 1em;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
-      width: 100%; // Full-width button
-      max-width: 200px; // Limit button width
-      margin: 0 auto; // Center the button
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
 
       &:hover {
         background-color: darken($light-blue, 10%);
@@ -78,13 +106,13 @@ body {
       }
 
       &:focus {
-        outline: 2px solid $dark-gray; // Subtle focus outline
+        outline: 2px solid $dark-gray;
       }
     }
   }
 }
 
 // Accessibility Enhancements
-.submit-button:focus {
-  outline: 2px solid $dark-gray; // Subtle outline for focus states
+.logout-button:focus {
+  outline: 2px solid $dark-gray;
 }

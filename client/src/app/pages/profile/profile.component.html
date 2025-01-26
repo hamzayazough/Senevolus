@@ -1,19 +1,28 @@
 <app-app-header type="volunteer"></app-app-header>
 
-<div class="profile-container">
-  <img src={{this.photo_id}} alt="Profile Picture" class="profile-pic">
+<div class="page-container">
+  <!-- Left decorative sidebar -->
+  <div class="sidebar left-sidebar"></div>
 
-  <form class="profile-form">
-    <div class="form-group">
-      <p class="form-label">{{ firstName }} {{ lastName }}, {{ age }} years old</p>
-    </div>
+  <!-- Main content -->
+  <div class="profile-container">
+    <img [src]="photo_id" alt="Profile Picture" class="profile-pic">
 
-    <div class="form-group">
-      <p class="form-label">{{ description }}</p>
-    </div>
+    <form class="profile-form">
+      <div class="form-group">
+        <p class="form-label">{{ firstName }} {{ lastName }}, {{ age }} years old</p>
+      </div>
 
-    <div class="form-group">
-      <button type="submit" class="logout-button" (click)="logout()">Logout</button>
-    </div>
-  </form>
+      <div class="form-group">
+        <p class="form-label">{{ description }}</p>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="logout-button" (click)="logout()">Logout</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Right decorative sidebar -->
+  <div class="sidebar right-sidebar"></div>
 </div>
