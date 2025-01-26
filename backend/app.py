@@ -26,7 +26,7 @@ def create_app():
 
         app.register_blueprint(user_blueprint, url_prefix="/api/users")
         app.register_blueprint(elder_blueprint, url_prefix="/api/elders")
-        app.register_blueprint(volunteer_blueprint, url_prefix="/api/volunteers")
+        app.register_blueprint(volunteer_blueprint)
         # Add other blueprints if necessary
         socketio_handlers(socketio)
 
