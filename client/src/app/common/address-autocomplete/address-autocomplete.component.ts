@@ -18,6 +18,7 @@ export class AddressAutocompleteComponent implements OnInit {
   apartmentNumberControl = new FormControl();
   suggestions: any[] = [];
   private address: Address = {} as Address;
+  showSuggestionsList = false;
 
   constructor(private mapBoxService: MapBoxService) {}
 
@@ -52,6 +53,17 @@ export class AddressAutocompleteComponent implements OnInit {
     this.addressControl.setValue(suggestion.place_name);
     this.addressSelected.emit(this.address);
     this.suggestions = [];
+    this.showSuggestionsList = false; // Hide the suggestions list immediately
+  }
+
+  showSuggestions(): void {
+    this.showSuggestionsList = true;
+  }
+
+  hideSuggestions(): void {
+    setTimeout(() => {
+      this.showSuggestionsList = false;
+    }, 2000);
   }
 
   setApartmentNumber(event: any): void {

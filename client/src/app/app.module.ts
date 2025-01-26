@@ -28,6 +28,11 @@ import { CreateTaskComponent } from './pages/create-task/create-task.component';
 import { AddressAutocompleteComponent } from './common/address-autocomplete/address-autocomplete.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -56,12 +61,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSidenavModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatInputModule,
   ],
   providers: [
     provideClientHydration(),
     AuthService,
     ChatService,
     provideAnimationsAsync(),
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent],
 })
