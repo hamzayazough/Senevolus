@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Address } from '../../../interfaces/address.interface';
+import { Address } from '../../interfaces/address';
 import { FormControl } from '@angular/forms';
 import { MapBoxService } from '../../services/map-box.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';

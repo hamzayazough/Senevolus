@@ -1,6 +1,5 @@
 export interface Address {
-  addr_id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
+  location: [number, number];
+  place?: string;
+  id?: string;
 }
