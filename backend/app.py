@@ -19,10 +19,12 @@ def create_app():
     # Function to register blueprints
     def register_blueprints(app):
         from routes.user_routes import user_blueprint
+        from routes.volunteer_routes import volunteer_blueprint
         # You can add other blueprints like elder, volunteer, etc.
         from routes.socket_routes import socketio_handlers
 
         app.register_blueprint(user_blueprint, url_prefix="/api/users")
+        app.register_blueprint(volunteer_blueprint)
         # Add other blueprints if necessary
         socketio_handlers(socketio)
 
