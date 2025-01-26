@@ -5,6 +5,7 @@ import { SocketService } from '../../services/socket.service';
 import { AppUser } from '../../interfaces/app-user';
 import { AddressAutocompleteComponent } from '../../common/address-autocomplete/address-autocomplete.component';
 import { Address } from '../../interfaces/address';
+import { FileUploadService } from '../../services/file-upload.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -26,7 +27,11 @@ export class CreateProfileComponent implements AfterViewInit {
   role: string = '';
   address: Address = { longitude: 0, latitude: 0, place: '' };
 
-  constructor(private router: Router, private socket: SocketService) {}
+  constructor(
+    private router: Router,
+    private socket: SocketService,
+    private fileUploadService: FileUploadService
+  ) {}
   onCategoryChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.role = target.value;
