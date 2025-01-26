@@ -115,12 +115,31 @@ export class CreateProfileComponent implements AfterViewInit {
 
   onSubmit() {
     if (this.idPhoto && this.personPhoto) {
-      console.log('Captured Image:', this.capturedImage);
+      // Convert dataURL to File objects
+      const idPhotoFile = this.dataURLtoFile(this.idPhoto, 'idPhoto.png');
+      const personPhotoFile = this.dataURLtoFile(this.personPhoto, 'personPhoto.png');
+  
+      // Upload the files using the FileUploadService
+      this.fileUploadService.uploadPhotos(idPhotoFile, personPhotoFile).subscribe(
+        (response) => {
+          console.log('Upload successful:', response);
+          // Proceed with form submission
+          this.submitFormData();
+        },
+        (error) => {
+          console.error('Upload failed:', error);
+        }
+      );
+    } else {
+      console.error('Both ID photo and person photo are required.');
     }
+  }
+  
+  submitFormData() {
     this.formData._id = this.socket.UID;
     this.formData.role = this.role;
     this.formData.address = this.address;
-    console.log('Form Data:', this.formData);
+  
     this.socket.on('userCreated', (userData: AppUser) => {
       console.log(userData);
       this.socket.user = userData;
@@ -131,10 +150,24 @@ export class CreateProfileComponent implements AfterViewInit {
         this.router.navigate([AppRoute.HOMEVOLUNTEER]);
       }
     });
+  
     this.socket.send('createUser', this.formData);
   }
 
   onFileChange(event: Event) {
     console.log('file changed');
+  }
+  dataURLtoFile(dataURL: string, filename: string): File {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+  
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+  
+    return new File([u8arr], filename, { type: mime });
   }
 }
