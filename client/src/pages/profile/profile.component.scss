@@ -1,0 +1,96 @@
+$light-blue: #A2D5F2;
+$light-purple: #CABBE9;
+$white: #FFFFFF;
+$light-gray: #F5F5F5;
+$dark-gray: #333333;
+
+// General Styles
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: $light-gray;
+  color: $dark-gray;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+// Profile Container
+.profile-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: $white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  // Profile Picture Label
+  .profile-pic-label {
+    font-size: 1.5em;
+    color: $light-blue;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  // Form Styles
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .form-label {
+        font-size: 1.2em;
+        color: $dark-gray;
+      }
+
+      .form-input {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid $light-purple;
+        border-radius: 5px;
+        background-color: $white;
+        color: $dark-gray;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          border-color: $light-blue;
+          outline: none;
+        }
+      }
+
+      textarea.form-input {
+        resize: vertical; // Allow vertical resizing
+      }
+    }
+
+    // Submit Button
+    .submit-button {
+      background-color: $light-blue;
+      color: $dark-gray;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($light-blue, 10%); // Slightly darker blue on hover
+      }
+
+      &:focus {
+        outline: 3px solid $dark-gray; // Dark gray outline for focus states
+      }
+    }
+  }
+}
+
+// Accessibility Enhancements
+.form-input:focus,
+.submit-button:focus {
+  outline: 3px solid $dark-gray; // Dark gray outline for focus states
+}

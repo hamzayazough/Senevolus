@@ -18,6 +18,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { ChatService } from '../services/chat-service/chat-service.service';
 import { VolunteerTaskPageComponent } from '../pages/volunteer-task-page/volunteer-task-page.component';
+import { ProfileComponent } from '../pages/profile/profile.component';
+import { ShopComponent } from '../pages/shop/shop.component';
+import { ShopProductComponent } from '../pages/shop/shop-product/shop-product.component';
+import { CreateTaskComponent } from '../pages/create-task/create-task.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { VolunteerTaskPageComponent } from '../pages/volunteer-task-page/volunte
     ListTaskComponent,
     ElderTaskPageComponent,
     ChatComponent,
-    VolunteerTaskPageComponent
+    VolunteerTaskPageComponent,
+    ProfileComponent,
+    ShopComponent,
+    ShopProductComponent,
+    CreateTaskComponent
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,12 @@
 <div id="header">
-    <p>Logo</p>
+    <img src="src/assets/logo.png" alt="Logo of Senevolus" (click)="navigate('home')">
 
     <div id="control-icons">
         <p *ngIf="this.type=='elder'" (click)="navigate('elderTaskPage')">MY TASK</p>
-        <p *ngIf="this.type=='elder'" (click)="navigate('home')">CREATE TASK</p>
+        <p *ngIf="this.type=='elder'" (click)="navigate('create-task')">CREATE TASK</p>
         <p *ngIf="this.type=='volunteer'" (click)="navigate('volunteerTaskPage')">My Tasks</p>
-        <p *ngIf="this.type=='volunteer'" (click)="navigate('home')">Shop</p>
+        <p *ngIf="this.type=='volunteer'" (click)="navigate('shop')">Shop</p>
         <p *ngIf="this.type=='volunteer'">Points</p>
-        <p  (click)="navigate('home')">PROFILE</p>
+        <p  (click)="navigate('profile')">PROFILE</p>
     </div>
 </div>
