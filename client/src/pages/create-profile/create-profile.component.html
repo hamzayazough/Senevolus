@@ -2,9 +2,16 @@
 <div class="form-container">
     <form (ngSubmit)="onSubmit()" #form="ngForm">
       <!-- Role -->
-      <div class="form-group">
-        <label for="role">Role:</label>
-        <input type="text" id="role" name="role" [(ngModel)]="formData.role" required />
+      <div class="radio-group">
+        <label for="category">Type of User</label>
+      <label class="radio-option">
+          <input type="radio" name="category" value="elderly">
+          <span class="radio-label">Elderly</span>
+      </label>
+      <label class="radio-option">
+          <input type="radio" name="category" value="volunteer">
+          <span class="radio-label">Volunteer</span>
+      </label>
       </div>
   
       <!-- Age -->
@@ -13,16 +20,45 @@
         <input type="number" id="age" name="age" [(ngModel)]="formData.age" required />
       </div>
   
-      <!-- ID Card -->
-      <div class="form-group">
-        <label for="id_card">ID Card:</label>
-        <input type="text" id="id_card" name="id_card" [(ngModel)]="formData.id_card" required />
-      </div>
-  
-      <!-- Photo ID -->
-      <div class="form-group">
-        <label for="photo_id">Photo ID:</label>
-        <input type="file" id="photo_id" name="photo_id" (change)="onFileChange($event)" required />
+      <div class="camera-container">
+        <h1>{{ step === 1 ? 'Step 1: Take a Picture of Your ID' : 'Step 2: Take a Picture of Yourself' }}</h1>
+      
+        <!-- Camera Feed -->
+        <div class="camera-section">
+          <video #videoElement autoplay class="camera-feed"></video>
+          <canvas #canvasElement class="camera-canvas" style="display: none;" *ngIf="isCameraOn"></canvas>
+        </div>
+      
+        <!-- Buttons for Step 1 -->
+        <div *ngIf="step === 1" class="button-group">
+          <button type="button" (click)="startCamera()" *ngIf="!isCameraOn">Start Camera</button>
+          <button type="button" (click)="takePicture()" *ngIf="isCameraOn">Capture ID Photo</button>
+          <button type="button" (click)="stopCamera()" *ngIf="isCameraOn">Stop Camera</button>
+        </div>
+      
+        <!-- Buttons for Step 2 -->
+        <div *ngIf="step === 2" class="button-group">
+          <button type="button" (click)="startCamera()" *ngIf="!isCameraOn">Start Camera</button>
+          <button type="button" (click)="takePicture()" *ngIf="isCameraOn">Capture Person Photo</button>
+          <button type="button" (click)="stopCamera()" *ngIf="isCameraOn">Stop Camera</button>
+        </div>
+      
+        <!-- Navigation Between Steps -->
+        <div class="step-navigation">
+          <button type="button" (click)="previousStep()" *ngIf="step === 2">Back to Step 1</button>
+          <button type="button" (click)="nextStep()" *ngIf="step === 1 && idPhoto">Next: Step 2</button>
+        </div>
+      
+        <!-- Display Captured Images -->
+        <div *ngIf="idPhoto" class="captured-image">
+          <h3>ID Photo</h3>
+          <img [src]="idPhoto" alt="Captured ID Photo">
+        </div>
+      
+        <div *ngIf="personPhoto" class="captured-image">
+          <h3>Person Photo</h3>
+          <img [src]="personPhoto" alt="Captured Person Photo">
+        </div>
       </div>
   
       <!-- Biography -->

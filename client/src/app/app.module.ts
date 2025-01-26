@@ -8,6 +8,10 @@ import { SignInComponent } from '../pages/sign-in/sign-in.component';
 import { CreateProfileComponent } from '../pages/create-profile/create-profile.component';
 import { AppHeaderComponent } from '../common/app-header/app-header.component';
 import { TaskComponent } from '../common/task/task.component';
+import { ProfileComponent } from '../pages/profile/profile.component';
+import { ShopComponent } from '../pages/shop/shop.component';
+import { ShopProductComponent } from '../pages/shop/shop-product/shop-product.component';
+import { CreateTaskComponent } from '../pages/create-task/create-task.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,11 @@ import { TaskComponent } from '../common/task/task.component';
     SignInComponent,
     CreateProfileComponent,
     AppHeaderComponent,
-    TaskComponent
+    TaskComponent,
+    ProfileComponent,
+    ShopComponent,
+    ShopProductComponent,
+    CreateTaskComponent
   ],
   imports: [
     BrowserModule,
