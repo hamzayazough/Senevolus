@@ -27,6 +27,7 @@
         <img src="assets/images/muscle-logo.png" class="logo" alt="Physical Support" />
       </label>
     </div>
+
     <!-- Description -->
     <div class="form-group">
       <label for="description">Explain what you need help for...</label>
@@ -41,7 +42,7 @@
     </div>
 
     <!-- Location -->
-    <app-address-autocomplete></app-address-autocomplete>
+    <app-address-autocomplete (addressSelected)="this.taskData.address"></app-address-autocomplete>
 
     <!-- Created Date -->
     <div class="form-group">
@@ -50,7 +51,7 @@
         type="date"
         id="createdDate"
         name="createdDate"
-        [(ngModel)]="taskData.createdDate"
+        [(ngModel)]="taskData.date_created"
         required
       />
     </div>
@@ -62,7 +63,7 @@
         type="date"
         id="dueDate"
         name="dueDate"
-        [(ngModel)]="taskData.dueDate"
+        [(ngModel)]="taskData.task_date"
         required
       />
     </div>
@@ -74,7 +75,7 @@
         type="time"
         id="timeStart"
         name="timeStart"
-        [(ngModel)]="taskData.timeStart"
+        [(ngModel)]="taskData.starting_hour"
         required
       />
     </div>

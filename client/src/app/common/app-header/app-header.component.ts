@@ -8,13 +8,17 @@ import { SocketService } from '../../services/socket.service';
   styleUrl: './app-header.component.scss'
 })
 export class AppHeaderComponent {
-  type: string = "elder";
+  get type() {
+    return this.socket.user.role;
+  }
 
+  get points() {
+    return this.socket.user.points
+  }
   constructor(
     private router : Router,
     private socket : SocketService
   ) {
-    this.type = this.socket.user.role;
   }
 
   navigate(adress : string) {
