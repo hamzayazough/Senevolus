@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { ChatService } from '../../services/chat-service/chat-service.service';
 import { SocketService } from '../../services/socket.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EndTaskDialogComponent } from '../../end-task-dialog/end-task-dialog.component';
 
 @Component({
   selector: 'app-task',
@@ -31,7 +33,8 @@ export class TaskComponent {
   constructor(
     private router : Router,
     private chatService : ChatService,
-    private socket : SocketService
+    private socket : SocketService,
+    private dialog : MatDialog,
   ) {
       console.log(this.distance);
   }
@@ -53,7 +56,9 @@ export class TaskComponent {
   }
 
   completeTask() {
-    
+    this.dialog.open(EndTaskDialogComponent, {
+      data: { message: 'HEY BOZO' },
+    });
   }
 
 }

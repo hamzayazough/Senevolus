@@ -44,15 +44,15 @@
                 <i class="fas fa-trash"></i>
             </div>
 
-            <button *ngIf="this.taskStatus == 'published' && this.userType != 'elder'"  (click)="acceptTask()" [ngClass]="{
+            <button *ngIf="this.taskStatus == 'published' && this.userType != 'elder'"  (click)="acceptTask()" class="trash-icon" [ngClass]="{
                 'status': true,
             }">APPPLY
         </button>
-            <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'" (click)="completeTask()" [ngClass]="{
+            <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'" (click)="completeTask()" class="trash-icon complete-icon" [ngClass]="{
                 'status': true,
                 'status-active': true
             }">
-            Finish Task
+            <i class="fas fa-check-circle"></i>
             </div>
       </div>
     </div>
