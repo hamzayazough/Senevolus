@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-app-header',
@@ -11,8 +12,9 @@ export class AppHeaderComponent {
 
   constructor(
     private router : Router,
+    private socket : SocketService
   ) {
-    
+    this.type = this.socket.user.role;
   }
 
   navigate(adress : string) {

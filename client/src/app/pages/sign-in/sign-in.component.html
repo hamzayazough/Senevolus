@@ -3,7 +3,7 @@
     <mat-card-title>SeneVolus</mat-card-title>
     <mat-card-content>
       <div *ngIf="!isAuthenticated">
-        <form (ngSubmit)="onSubmit()" #authForm="ngForm" class="auth-form">
+        <form #authForm="ngForm" class="auth-form">
           <mat-form-field appearance="outline" class="form-field" floatLabel="always">
             <mat-label>Email</mat-label>
             <input

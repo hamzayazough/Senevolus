@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRoute } from '../constants';
+import { SocketService } from '../../services/socket.service';
+import { AppUser } from '../../interfaces/app-user';
 
 @Component({
   selector: 'app-create-profile',
@@ -17,6 +19,19 @@ export class CreateProfileComponent {
   mediaStream: MediaStream | null = null;
   idPhoto: string | null = null;
   personPhoto: string | null = null;
+  role : string = '';
+
+  constructor (
+    private router : Router,
+    private socket:SocketService
+  ) {
+
+  }
+  onCategoryChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.role = target.value;
+    console.log('Selected category:', this.role);  // You can use this variable as needed
+  }
 
   async startCamera() {
     try{
@@ -71,24 +86,37 @@ export class CreateProfileComponent {
   }
 
   formData = {
+    _id: '',
     role: '',
-    age: null,
-    id_card: '',
-    photo_id: null,
-    biography: '',
-    address: ''
+    firstName: '',
+    lastName: '',
+    email: '',
+    age: 0,
+    id_card: 'example',
+    photo_id: 'example',
+    description: '',
+    address: '',
+    username: '',
   };
-  constructor(
-    private router : Router
-  ) {}
 
   onSubmit() {
     if (this.idPhoto && this.personPhoto) {
 
       console.log('Captured Image:', this.capturedImage);
     }
+    this.formData._id = this.socket.UID;
+    this.formData.role = this.role;
     console.log('Form Data:', this.formData);
-    this.router.navigate([AppRoute.HOME])
+    this.socket.on('userCreated', (userData: AppUser) => {
+      console.log(userData);
+      this.socket.user = userData;
+      if (this.socket.user.role == 'elder') {
+        this.router.navigate([AppRoute.HOMEELDER])
+      } else if (this.socket.user.role == 'volunteer') {
+        this.router.navigate([AppRoute.HOMEVOLUNTEER])
+      }
+    })
+    this.socket.send('createUser', this.formData);
   }
 
   onFileChange(event: Event) {

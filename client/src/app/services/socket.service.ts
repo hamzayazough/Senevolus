@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket, io } from 'socket.io-client';
 import { environment } from '../../environment';
+import { AppUser } from '../interfaces/app-user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,20 @@ export class SocketService {
     socket!: Socket;
     isOrganizer: boolean = false;
     isRandomMode: boolean = false;
+    user : AppUser = {
+        _id: '',
+        firstName: '',
+        lastName: 'string',
+        username: 'string',
+        email: 'string',
+        role: '',
+        id_card: 'string',
+        photo_id: 'string',
+        age: 2,
+        address: 'string',
+        description: 'string',
+        points: 2,
+      };
 
     constructor() {
     }
@@ -36,8 +51,10 @@ export class SocketService {
         this.socket.emit(event, ...[data, callback].filter((x) => x));
     }
 
-    initializeEvents() {
-
+    initializeConnectEvents() {
+        this.socket.on('connect_getuser', (userData : AppUser) => {
+           this.user = userData 
+        });
     }
 }
 
