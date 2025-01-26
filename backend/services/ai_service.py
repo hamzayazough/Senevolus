@@ -1,35 +1,63 @@
-# filepath: /C:/Users/hamza/Documents/Senevolus/backend/services/ai_service.py
+from keras.models import Model
+from keras.layers import Input, Conv2D, BatchNormalization, Activation, MaxPooling2D, Flatten, Dense
 import cv2
 import numpy as np
 import tensorflow as tf
 from flask import current_app
 import boto3
 from botocore.exceptions import NoCredentialsError
-
-face_verification_model = None
+from scipy.spatial.distance import euclidean
+import os
+face_embedding_model = None
 s3 = None
 
-def initialize_services():
-    global face_verification_model, s3
 
-    # Load the pre-trained AI model (ensure model.h5 is in the correct location)
-    MODEL_PATH = "models/face_verification_model.h5"
+def initialize_services():
+    global face_embedding_model, s3
+    print("Initializing services...")
 
     try:
-        face_verification_model = tf.keras.models.load_model(MODEL_PATH)
-    except Exception as e:
-        face_verification_model = None
-        current_app.logger.error(f"Failed to load AI model: {e}")
+        print("Recreating FaceNet model and loading weights...")
+        face_embedding_model = create_facenet_model()
+        model_weights_path = "facenet_keras.h5"
+        import os
 
-    # AWS S3 Setup
-    s3 = boto3.client(
-        "s3",
-        aws_access_key_id=current_app.config.get("AWS_ACCESS_KEY"),
-        aws_secret_access_key=current_app.config.get("AWS_SECRET_KEY"),
-        region_name=current_app.config.get("AWS_REGION"),
-    )
+        model_weights_path = "facenet_keras.h5"
+        if not os.path.exists(model_weights_path):
+            print(f"Model weights file not found at {model_weights_path}")
+        else:
+            print(f"Model weights file found at {model_weights_path}")
+
+        face_embedding_model.load_weights(model_weights_path)
+        current_app.logger.info("Face verification model loaded successfully.")
+    except Exception as e:
+        current_app.logger.error(f"Failed to load FaceNet weights: {e}")
+
+    try:
+        s3 = boto3.client(
+            "s3",
+            aws_access_key_id=current_app.config.get("AWS_ACCESS_KEY"),
+            aws_secret_access_key=current_app.config.get("AWS_SECRET_KEY"),
+            region_name=current_app.config.get("AWS_REGION"),
+        )
+    except Exception as e:
+        current_app.logger.error(f"Failed to initialize S3 client: {e}")
+
+
+def create_facenet_model():
+    input_layer = Input(shape=(160, 160, 3))
+    x = Conv2D(32, (3, 3), activation='relu')(input_layer)
+    x = BatchNormalization()(x)
+    x = MaxPooling2D(pool_size=(2, 2))(x)
+    x = Flatten()(x)
+    output_layer = Dense(128, activation='relu')(x)
+
+    model = Model(inputs=input_layer, outputs=output_layer)
+    return model
+
 
 def preprocess_image(image):
+
     """
     Preprocess the input image for the AI model.
     Resizes to 224x224 (or the size expected by your model) and normalizes pixel values.
@@ -37,23 +65,36 @@ def preprocess_image(image):
     try:
         img_array = np.frombuffer(image.read(), np.uint8)
         img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-        img = cv2.resize(img, (224, 224))  # Resize to match the model input
-        img = img / 255.0  # Normalize pixel values
+        img = cv2.resize(img, (160, 160))  # Resize to match the model input
+        img = img / 255.0 
         return np.expand_dims(img, axis=0)  # Add batch dimension
     except Exception as e:
         current_app.logger.error(f"Failed to preprocess image: {e}")
         return None
 
-def validate_id_and_face(id_card_image, face_image):
+
+def get_embedding(model, processed_image):
+    """
+    Generate FaceNet embeddings for the given preprocessed image.
+    """
+    try:
+        return model.predict(processed_image)[0]
+    except Exception as e:
+        current_app.logger.error(f"Failed to generate embedding: {e}")
+        return None
+    
+
+def validate_id_and_face(id_card_image, face_image, threshold=0.8):
     """
     Validate that the person in the ID card matches the person in the selfie image.
     Returns True if the validation succeeds, False otherwise.
     """
-    if not face_verification_model:
+    if not face_embedding_model:
         current_app.logger.error("AI model not loaded. Validation cannot proceed.")
         return False
 
     try:
+        print("Preprocessing images...")
         id_card_processed = preprocess_image(id_card_image)
         face_processed = preprocess_image(face_image)
 
@@ -61,12 +102,24 @@ def validate_id_and_face(id_card_image, face_image):
             current_app.logger.error("Failed to preprocess one or both images.")
             return False
 
-        # Run the model's prediction (this assumes the model outputs similarity as a float)
-        similarity_score = face_verification_model.predict([id_card_processed, face_processed])[0][0]
-        return similarity_score > 0.5  # Adjust threshold based on your model's performance
+        print("Generating embeddings...")
+        id_card_embedding = get_embedding(face_embedding_model, id_card_processed)
+        face_embedding = get_embedding(face_embedding_model, face_processed)
+
+        if id_card_embedding is None or face_embedding is None:
+            current_app.logger.error("Failed to generate embeddings.")
+            return False
+
+        distance = euclidean(id_card_embedding, face_embedding)
+        print("Distance:", distance)
+        is_same_person = distance < threshold
+
+        current_app.logger.info(f"Distance: {distance}, Is same person: {is_same_person}")
+        return is_same_person
     except Exception as e:
         current_app.logger.error(f"Error during validation: {e}")
         return False
+    
 
 def fetch_user_image_from_s3(user_id, image_type="photo_id"):
     """
@@ -84,7 +137,7 @@ def fetch_user_image_from_s3(user_id, image_type="photo_id"):
         current_app.logger.error(f"Failed to fetch image from S3: {e}")
     return None
 
-def validate_task_completion(elder_id, volunteer_id, selfie_image):
+def validate_task_completion(elder_id, volunteer_id, selfie_image, threshold=0.8):
     """
     Validate task completion by comparing the elder's and volunteer's faces in the selfie image.
     Fetch stored images of the elder and volunteer from S3 for comparison.
@@ -106,13 +159,17 @@ def validate_task_completion(elder_id, volunteer_id, selfie_image):
             return False
 
         # Validate elder in the selfie
-        elder_similarity = face_verification_model.predict([elder_processed, selfie_processed])[0][0]
+        elder_embedding = get_embedding(face_embedding_model, elder_processed)
+        selfie_embedding = get_embedding(face_embedding_model, selfie_processed)
+
+        elder_similarity = euclidean(elder_embedding, selfie_embedding)
 
         # Validate volunteer in the selfie
-        volunteer_similarity = face_verification_model.predict([volunteer_processed, selfie_processed])[0][0]
+        volunteer_embedding = get_embedding(face_embedding_model, volunteer_processed)
+        volunteer_similarity = euclidean(volunteer_embedding, selfie_embedding)
 
         # Check if both elder and volunteer are recognized in the selfie
-        return elder_similarity > 0.5 and volunteer_similarity > 0.5
+        return elder_similarity < threshold and volunteer_similarity < threshold
     except Exception as e:
         current_app.logger.error(f"Error during task completion validation: {e}")
         return False

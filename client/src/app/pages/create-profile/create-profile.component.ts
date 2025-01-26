@@ -124,6 +124,7 @@ export class CreateProfileComponent implements AfterViewInit {
     this.socket.on('userCreated', (userData: AppUser) => {
       console.log(userData);
       this.socket.user = userData;
+      this.socket.initializeFetchListEvents();
       if (this.socket.user.role == 'elder') {
         this.router.navigate([AppRoute.HOMEELDER]);
       } else if (this.socket.user.role == 'volunteer') {
