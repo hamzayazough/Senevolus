@@ -1,13 +1,57 @@
-<div>
-  <p>SeneVolus</p>
-  @if(isAuthenticated) {
-    <button
-      (click)="logout()">
-      Log out
-    </button>
-    } @else {
-    <button (click)="login()">Log in</button>
-    }
-  <button (click)="home('home')">HomeVieux</button>
-  <button (click)="home('home')">HomeBenevole</button>
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <mat-card-title>SeneVolus</mat-card-title>
+    <mat-card-content>
+      <div *ngIf="!isAuthenticated">
+        <form (ngSubmit)="onSubmit()" #authForm="ngForm" class="auth-form">
+          <mat-form-field appearance="outline" class="form-field" floatLabel="always">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              required
+              [(ngModel)]="email"
+              name="email"
+              #emailInput="ngModel"
+              placeholder="Enter your email"
+            />
+            <mat-error *ngIf="emailInput.invalid && emailInput.touched">Please enter a valid email</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field" floatLabel="always">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              required
+              [(ngModel)]="password"
+              name="password"
+              #passwordInput="ngModel"
+              placeholder="Enter your password"
+            />
+            <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">Password is required</mat-error>
+          </mat-form-field>
+
+          <div class="button-container">
+            <button mat-raised-button color="primary" [disabled]="authForm.invalid" (click)="login()">
+              Log In
+            </button>
+            <button mat-raised-button color="accent" [disabled]="authForm.invalid" (click)="createAccount()">
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="isAuthenticated" class="logout-container">
+        <p>Welcome! You are logged in.</p>
+        <button mat-raised-button color="warn" (click)="logout()">Log Out</button>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="isAuthenticated">
+      <button mat-stroked-button color="primary" (click)="home('home')">Home Vieux</button>
+      <button mat-stroked-button color="primary" (click)="home('home')">Home Bénévole</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

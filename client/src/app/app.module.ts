@@ -24,9 +24,17 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { ShopProductComponent } from './pages/shop/shop-product/shop-product.component';
 import { CreateTaskComponent } from './pages/create-task/create-task.component';
-import { provideAuth0 } from '@auth0/auth0-angular';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { environment } from '../environment';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
+const firebaseApp = initializeApp(environment.firebaseConfig);
+const auth = getAuth(firebaseApp);
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +50,7 @@ import { provideAuth0 } from '@auth0/auth0-angular';
     ProfileComponent,
     ShopComponent,
     ShopProductComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,15 +59,17 @@ import { provideAuth0 } from '@auth0/auth0-angular';
     FormsModule,
     MatTabsModule,
     MatSidenavModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [
-    provideAuth0({
-      domain: 'dev-ibta2mockraiqpl3.us.auth0.com',
-      clientId: 'qFnDGnuvJx22LvmoEgmja8UYyGrjJdR4',
-    }),
     provideClientHydration(),
     ChatService,
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: 'FIREBASE_APP', useValue: firebaseApp },
+    { provide: 'FIREBASE_AUTH', useValue: auth },
   ],
   bootstrap: [AppComponent],
 })

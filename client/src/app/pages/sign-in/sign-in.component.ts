@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppRoute } from '../constants';
-import { AuthService } from '@auth0/auth0-angular';
-import { DOCUMENT } from '@angular/common';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, Auth } from 'firebase/auth';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -10,38 +9,73 @@ import { DOCUMENT } from '@angular/common';
   styleUrl: './sign-in.component.scss',
 })
 export class SignInComponent implements OnInit {
+  email: string = '';
+  password: string = '';
   isAuthenticated: boolean = false;
 
-  constructor(
-    private router: Router,
-    private auth: AuthService,  // Ensure AuthService is injected
-    @Inject(DOCUMENT) private document: Document
-  ) {}
+  private auth: Auth;
+
+  constructor(private router: Router) {
+    this.auth = getAuth();
+  }
 
   ngOnInit(): void {
-    // Only perform Auth0 actions if we're in the browser environment
-    if (typeof window !== 'undefined') {
-      // Check if the user is authenticated using Auth0
-      this.auth.isAuthenticated$.subscribe((authenticated) => {
-        this.isAuthenticated = authenticated;
+    this.auth.onAuthStateChanged((user) => {
+      this.isAuthenticated = !!user;
+    });
+  }
+
+  onSubmit() {
+    if (!this.email || !this.password) {
+      alert('Email and Password are required.');
+      return;
+    }
+    this.login();
+  }
+  
+
+  login() {
+    signInWithEmailAndPassword(this.auth, this.email, this.password)
+      .then((userCredential) => {
+        console.log('Logged in successfully:', userCredential.user);
+        this.isAuthenticated = true;
+      })
+      .catch((error) => {
+        console.error('Login error:', error.message);
+        alert(error.message);
       });
-    }
   }
 
-  home(address: string): void {
-    this.router.navigate([address]);
+  createAccount() {
+    createUserWithEmailAndPassword(this.auth, this.email, this.password)
+      .then((userCredential) => {
+        console.log('Account created successfully:', userCredential.user);
+        this.isAuthenticated = true;
+      })
+      .catch((error) => {
+        console.error('Account creation error:', error.message);
+        alert(error.message);
+      });
   }
 
-  // Handle login with redirect in client-side context
-  login(): void {
-    if (typeof window !== 'undefined') {
-      this.auth.loginWithRedirect();
-    }
+  logout() {
+    signOut(this.auth)
+      .then(() => {
+        console.log('Logged out successfully');
+        this.isAuthenticated = false;
+        // Redirect or update UI
+      })
+      .catch((error) => {
+        console.error('Logout error:', error.message);
+        alert(error.message);
+      });
   }
 
-  logout(): void {
-    if (typeof window !== 'undefined') {
-      this.auth.logout();
+  home(type: string) {
+    if (type === 'home') {
+      this.router.navigate(['/home']);
+    } else {
+      console.warn('Unknown home type');
     }
   }
 }
