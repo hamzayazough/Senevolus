@@ -1,0 +1,20 @@
+<div class="address-autocomplete-container">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Search for an Address</mat-label>
+    <input
+      matInput
+      [formControl]="addressControl"
+      placeholder="Type an address"
+      autocomplete="off"
+    />
+  </mat-form-field>
+
+  <ul *ngIf="suggestions.length" class="suggestions-list">
+    <li
+      *ngFor="let suggestion of suggestions"
+      (click)="selectSuggestion(suggestion)"
+    >
+      {{ suggestion.place_name }}
+    </li>
+  </ul>
+</div>

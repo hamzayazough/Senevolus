@@ -1,0 +1,36 @@
+.address-autocomplete-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+
+  .full-width {
+    width: 100%;
+  }
+
+  .suggestions-list {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    list-style: none;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f4f4f4;
+      }
+    }
+  }
+}
