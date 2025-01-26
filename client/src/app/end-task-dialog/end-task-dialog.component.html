@@ -1,8 +1,17 @@
 <div>
     <h2>Take a selfie with the elderly person to validate your work!</h2>
-    <video #videoElement autoplay></video>
+  
+    <!-- Video element for camera feed -->
+    <video *ngIf="!capturedImage" #videoElement autoplay></video>
+  
+    <!-- Canvas element for capturing the image -->
     <canvas #canvasElement style="display: none"></canvas>
-    <button (click)="startCamera()">Start Camera</button>
-    <button (click)="takePicture()">Take Picture</button>
-    <button (click)="submitPicture()">Submit!</button>
-</div>
+  
+    <!-- Display the captured image -->
+    <img *ngIf="capturedImage" [src]="capturedImage" alt="Captured Image" class="captured-image">
+  
+    <!-- Buttons -->
+    <button (click)="startCamera()" *ngIf="!isCameraOn && !capturedImage">Start Camera</button>
+    <button (click)="takePicture()" *ngIf="isCameraOn && !capturedImage">Take Picture</button>
+    <button (click)="submitPicture()" *ngIf="capturedImage">Submit!</button>
+  </div>
