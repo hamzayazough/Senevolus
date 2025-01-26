@@ -12,6 +12,10 @@ def get_tasks_by_elder_and_status(elder_id, status):
     """Retrieve tasks with a specific status."""
     return list(mongo.db.TaskRequest.find({"elder_id": elder_id, "status": status}))
 
+def get_tasks_by_volunteer_and_status(volunteer_id, status):
+    """Retrieve tasks with a specific status."""
+    return list(mongo.db.TaskRequest.find({"volunteer_id": volunteer_id, "status": status}))
+
 def get_tasks_by_elder(elder_id):
     """Retrieve tasks created by a specific elder."""
     return list(mongo.db.TaskRequest.find({"elder_id": elder_id}))
