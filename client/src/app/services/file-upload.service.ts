@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FileUploadService {
   private apiUrl = 'http://127.0.0.1:5000/upload';
-
+  private apiSelfieUrl = 'http://127.0.0.1:5000/upload/selfie';
   constructor(private http: HttpClient) {}
 
   uploadPhotos(idPhoto: File, personPhoto: File) {
@@ -15,5 +15,12 @@ export class FileUploadService {
     formData.append('personPhoto', personPhoto);
 
     return this.http.post(this.apiUrl, formData);
+  }
+
+  uploadSelfiePhoto(selfiePhoto: File) {
+    const formData = new FormData();
+    formData.append('idPhoto', selfiePhoto);
+
+    return this.http.post(apiSelfieUrl, formData);
   }
 }

@@ -37,23 +37,82 @@ export class EndTaskDialogComponent {
         alert('Error opening camera. Please ensure you have granted permission.');
       }
     }
+  
+    takePicture() {
+      const video = this.videoElement.nativeElement;
+      const canvas = this.canvasElement.nativeElement;
+      const context = canvas.getContext('2d');
+  
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+  
+      context?.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+      const capturedImage = canvas.toDataURL('image/png');
+  
+      this.selfiePhoto = capturedImage;
+    }
+  
+    stopCamera() {
+      if (this.mediaStream) {
+        this.mediaStream.getTracks().forEach((track) => track.stop());
+        this.isCameraOn = false;
+        this.videoElement.nativeElement.srcObject = null;
+      }
+    }
+  
+    formData = {
+      _id: '',
+      role: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      age: 0,
+      id_card: 'example',
+      photo_id: 'example',
+      description: '',
+      address: { longitude: 0, latitude: 0, place: '' },
+      username: '',
+    };
+  
+    onSubmit() {
+      if (this.selfiePhoto) {
+        // Convert dataURL to File objects
+        const selfiePhotoFile = this.dataURLtoFile(this.selfiePhoto, 'idPhoto.png');
+    
+        // Upload the files using the FileUploadService
+        this.fileUploadService.uploadSelfiePhoto(selfiePhotoFile).subscribe(
+          (response) => {
+            console.log('Upload successful:', response);
+            // Proceed with form submission
+            this.submitFormData();
+          },
+          (error) => {
+            console.error('Upload failed:', error);
+          }
+        );
+      } else {
+        console.error('Both ID photo and person photo are required.');
+      }
+    }
 
-  takePicture() {
-    const video = this.videoElement.nativeElement;
-    const canvas = this.canvasElement.nativeElement;
-    const context = canvas.getContext('2d');
 
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
 
-    context?.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    const capturedImage = canvas.toDataURL('image/png');
-
-    this.selfiePhoto = capturedImage;
+  submitFormData() {
+    throw new Error('Method not implemented.');
   }
-
-  submitPicture() {
-
+  
+  dataURLtoFile(dataURL: string, filename: string): File {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+  
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+  
+    return new File([u8arr], filename, { type: mime });
   }
 }
