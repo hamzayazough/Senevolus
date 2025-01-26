@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-app-header',
@@ -7,11 +8,14 @@ import { Router } from '@angular/router';
   styleUrl: './app-header.component.scss'
 })
 export class AppHeaderComponent {
-  @Input() type: string = "default";
+  type: string = "";
 
   constructor(
-    private router : Router
-  ) {}
+    private router : Router,
+    private authService : AuthService
+  ) {
+    this.type = this.authService.userType;
+  }
 
   navigate(adress : string) {
     this.router.navigate([adress]);
