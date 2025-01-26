@@ -72,7 +72,7 @@ export class EndTaskDialogComponent {
         (response) => {
           console.log('Upload successful:', response);
           // Proceed with form submission
-          this.submitFormData();
+          console.log("LOLOLOL");
         },
         (error) => {
           console.error('Upload failed:', error);
@@ -82,5 +82,20 @@ export class EndTaskDialogComponent {
       console.error('Both ID photo and person photo are required.');
     }
   }
+
+  dataURLtoFile(dataURL: string, filename: string): File {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
   }
+}
+
 
