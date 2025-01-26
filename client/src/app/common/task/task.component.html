@@ -46,7 +46,7 @@
 
             <button *ngIf="this.taskStatus == 'published' && this.userType != 'elder'"  (click)="acceptTask()" class="trash-icon" [ngClass]="{
                 'status': true,
-            }">APPPLY
+            }">APPLY
         </button>
             <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'" (click)="completeTask()" class="trash-icon complete-icon" [ngClass]="{
                 'status': true,
