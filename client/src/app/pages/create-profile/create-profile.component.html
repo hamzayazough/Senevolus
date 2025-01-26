@@ -1,15 +1,23 @@
 <app-app-header type="elder"></app-app-header>
 <div class="form-container">
     <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="name-section">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" [(ngModel)]="formData.firstName" name="firstName" placeholder="Enter First Name">
+    
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" [(ngModel)]="formData.lastName" name="lastName" placeholder="Enter Last Name">
+      </div>
+
       <!-- Role -->
       <div class="radio-group">
         <label for="category">Type of User</label>
       <label class="radio-option">
-          <input type="radio" name="category" value="elderly">
+          <input type="radio" name="category" value="elder" (change)="onCategoryChange($event)">
           <span class="radio-label">Elderly</span>
       </label>
       <label class="radio-option">
-          <input type="radio" name="category" value="volunteer">
+          <input type="radio" name="category" value="volunteer" (change)="onCategoryChange($event)">
           <span class="radio-label">Volunteer</span>
       </label>
       </div>
@@ -64,7 +72,7 @@
       <!-- Biography -->
       <div class="form-group">
         <label for="biography">Biography:</label>
-        <textarea id="biography" name="biography" [(ngModel)]="formData.biography" rows="5" required></textarea>
+        <textarea id="biography" name="biography" [(ngModel)]="formData.description" rows="5" required></textarea>
       </div>
   
       <!-- Address -->

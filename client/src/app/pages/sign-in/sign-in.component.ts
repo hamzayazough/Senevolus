@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, Auth } from 'firebase/auth';
-
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,10 +12,12 @@ export class SignInComponent implements OnInit {
   email: string = '';
   password: string = '';
   isAuthenticated: boolean = false;
-
   private auth: Auth;
-
-  constructor(private router: Router) {
+  
+  constructor(
+    private router: Router,
+    private socket: SocketService,
+  ) {
     this.auth = getAuth();
   }
 
@@ -25,20 +27,14 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (!this.email || !this.password) {
-      alert('Email and Password are required.');
-      return;
-    }
-    this.login();
-  }
-  
-
-  login() {
-    signInWithEmailAndPassword(this.auth, this.email, this.password)
+  async login() {
+    await signInWithEmailAndPassword(this.auth, this.email, this.password)
       .then((userCredential) => {
-        console.log('Logged in successfully:', userCredential.user);
         this.isAuthenticated = true;
+        this.socket.UID=userCredential.user.uid;
+        this.socket.connect();
+        this.socket.initializeConnectEvents();
+        this.socket.send("connect_getuser", this.socket.UID)
       })
       .catch((error) => {
         console.error('Login error:', error.message);
@@ -46,11 +42,14 @@ export class SignInComponent implements OnInit {
       });
   }
 
-  createAccount() {
-    createUserWithEmailAndPassword(this.auth, this.email, this.password)
+  async createAccount() {
+    await createUserWithEmailAndPassword(this.auth, this.email, this.password)
       .then((userCredential) => {
-        console.log('Account created successfully:', userCredential.user);
         this.isAuthenticated = true;
+        this.socket.UID=userCredential.user.uid;
+        this.socket.user.email != userCredential.user.email;
+        this.socket.connect();
+        this.router.navigate(['createProfile']);
       })
       .catch((error) => {
         console.error('Account creation error:', error.message);
@@ -59,11 +58,14 @@ export class SignInComponent implements OnInit {
   }
 
   logout() {
+    this.socket.disconnect();
     signOut(this.auth)
       .then(() => {
         console.log('Logged out successfully');
         this.isAuthenticated = false;
+        this.socket.UID = '';
         // Redirect or update UI
+        //this.socket.disconnect();
       })
       .catch((error) => {
         console.error('Logout error:', error.message);
