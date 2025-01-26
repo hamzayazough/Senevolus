@@ -129,3 +129,5 @@ dmypy.json
 
 # Local development
 *.local
+
+/myenv/
