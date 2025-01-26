@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChatService } from '../../services/chat-service/chat-service.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-volunteer-task-page',
@@ -8,9 +9,17 @@ import { ChatService } from '../../services/chat-service/chat-service.service';
 })
 export class VolunteerTaskPageComponent {
   get opened() {
-    return this.chatService.opened;
+      return this.chatService.opened;
+    }
+  
+    get tasks() {
+      return this.socket.tasks;
+    }
+  
+    constructor(
+      private chatService : ChatService,
+      private socket: SocketService
+    ) {
+      this.socket.send('getListVolunteer', this.socket.UID);
+    }
   }
-  constructor(
-    private chatService : ChatService
-  ) {}
-}
