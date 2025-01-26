@@ -4,7 +4,7 @@
 $pastel-blue: #a2d5f2; // Light blue
 $pastel-purple: #cabbe9; // Light purple
 $white: #ffffff;
-$light-gray: #f5f5f5;
+$light-gray: #0000007d;
 $dark-gray: #333333;
 
 // Auth Container
@@ -13,13 +13,14 @@ $dark-gray: #333333;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
   background: linear-gradient(
     to bottom right,
     $pastel-purple,
     $pastel-blue
   ); // Pastel gradient
   padding: 16px;
+  overflow:hidden;
 }
 
 // Big Modern Title Above the Box
@@ -27,7 +28,7 @@ $dark-gray: #333333;
   font-family: "Poppins", sans-serif; // Modern font
   font-size: 4em; // Very large font size
   font-weight: 600; // Bold
-  color: $white; // White color for contrast
+  color: rgb(150, 120, 137); // White color for contrast
   margin-bottom: 20px; // Space between title and card
   text-align: center;
   text-transform: uppercase; // Uppercase for a modern look
@@ -41,7 +42,7 @@ $dark-gray: #333333;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Soft shadow
   border-radius: 12px;
-  background: $white; // White background for the card
+  background: $pastel-purple; // White background for the card
 }
 
 // Auth Form
@@ -149,11 +150,10 @@ $dark-gray: #333333;
 
   .mat-input-element {
     color: $dark-gray; // Dark gray for input text
-    background-color: $white; // Ensure background is white
+    background-color: red; // Ensure background is white
   }
 
   input {
-    color: $dark-gray; // Ensure input text is dark gray
-    background-color: $white; // Ensure input background is white
+    color: black; // Ensure input text is dark gray
   }
 }

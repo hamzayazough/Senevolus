@@ -20,7 +20,8 @@ export class ListTaskComponent {
       title: 'Titre Bidon',
       hour_duration: 1,
       _id: '',
-      elder_id:''
+      elder_id:'',
+      volunteer_id:''
     }
   ];
   @Input() section : string = '';

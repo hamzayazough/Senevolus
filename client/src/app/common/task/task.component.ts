@@ -22,11 +22,11 @@ export class TaskComponent {
   @Input() visible : boolean = true;
   @Input() _id : string = '';
   @Input() elder_id : string = '';
+  @Input() volunteer_id : string = '';
 
   get userType() {
     return this.socket.user.role;
   }
-
 
   constructor(
     private router : Router,
@@ -45,6 +45,11 @@ export class TaskComponent {
 
   acceptTask() {
     this.socket.send('taskAccepted', {volunteer_id : this.socket.UID, task_id:this._id, elder_id:this.elder_id} )
+  }
+
+  removeTask() {
+    console.log("REMOVE")
+    this.socket.send('taskRemoved', {elder_id : this.socket.UID, task_id:this._id, volunteer_id:this.volunteer_id} )
   }
 
 }
