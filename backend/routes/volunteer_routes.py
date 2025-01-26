@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from models.task_model import get_tasks_by_volunteer #, get_new_task_requests, accept_task, confirm_task_completion
-# from models.user_model import get_user_with_ratings
+from models.task_model import get_elder_id_from_task, get_tasks_by_volunteer
+from models.user_model import get_user_by_id
 
 volunteer_blueprint = Blueprint("volunteer_routes", __name__)
 
@@ -21,9 +21,10 @@ def new_task_requests(auth0_id):
     return jsonify(res), 200
 
 # Consult elder profile
-@volunteer_blueprint.route('/volunteer/<auth0_id>/consult-elder-profile/<elder_id>', methods=['GET'])
-def consult_elder_profile(auth0_id, elder_id):
-    elder = get_user_with_ratings(elder_id)
+@volunteer_blueprint.route('/consult-elder-profile/<_id>', methods=['GET'])
+def consult_elder_profile(_id):
+    elder_id = get_elder_id_from_task(_id)
+    elder = get_user_by_id(elder_id)
     return jsonify(elder), 200
 
 # Accept a task

@@ -11,3 +11,6 @@ def get_ratings_by_volunteer(volunteer_id):
 def get_rating_by_task(task_request_id):
     """Retrieve a rating associated with a specific task request ID."""
     return mongo.db.VolunteerRating.find_one({"task_request_id": task_request_id})
+def get_elder_id_from_task(task_request_id):
+    """Retrieve the elder ID associated with a specific task request ID."""
+    return mongo.db.TaskRequest.find_one({"_id": task_request_id})['elder_id']
