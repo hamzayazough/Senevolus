@@ -6,13 +6,12 @@ import { environment } from '../../environment';
   providedIn: 'root'
 })
 export class SocketService {
-  UID : string = '';
-  socket!: Socket;
-  isOrganizer: boolean = false;
-  isRandomMode: boolean = false;
+    UID : string = '';
+    socket!: Socket;
+    isOrganizer: boolean = false;
+    isRandomMode: boolean = false;
 
     constructor() {
-        //this.connect();
     }
 
     isSocketAlive() {
@@ -20,11 +19,13 @@ export class SocketService {
     }
 
     connect() {
-        if (!this.isSocketAlive()) this.socket = io(environment.webSocketUrl, { transports: ['websocket'], upgrade: false });
+        console.log("connecting, state of socket:", this.isSocketAlive());
+        if (this.isSocketAlive() == undefined) this.socket = io(environment.webSocketUrl, { transports: ['websocket'], upgrade: false });
     }
 
     disconnect() {
-        if (this.isSocketAlive()) this.socket.disconnect();
+        console.log("disconnecting, state of socket:", this.isSocketAlive());
+        if (this.isSocketAlive() != undefined) this.socket.disconnect();
     }
 
     on<T>(event: string, action: (data: T) => void): void {
@@ -36,7 +37,7 @@ export class SocketService {
     }
 
     initializeEvents() {
-        
+
     }
 }
 

@@ -5,7 +5,6 @@ from db import mongo, socketio
 
 def create_app():
     app = Flask(__name__)
-
     # Load configurations from .env
     app.config["MONGO_URI"] = config("MONGO_URI")
     app.config["SECRET_KEY"] = config("SECRET_KEY")

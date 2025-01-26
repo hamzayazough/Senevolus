@@ -3,8 +3,9 @@ from flask_socketio import emit, join_room
 def socketio_handlers(socketio):
     @socketio.on('send_message')
     def send_message(data):
-        room = data['task_id']
-        emit('new_message', data, to=room)
+        #room = data['task_id']
+        #emit('new_message', data, to=room)
+        print(data)
 
     @socketio.on('join_room')
     def join_task_chat(data):
@@ -16,3 +17,11 @@ def socketio_handlers(socketio):
     def task_status_change(data):
         room = data['elder_id']
         emit('task_update', data, to=room)
+
+    @socketio.on('connect')
+    def handle_connect():
+        print("Client connected")
+
+    @socketio.on('disconnect')
+    def handle_disconnect():
+        print("Client disconnected")

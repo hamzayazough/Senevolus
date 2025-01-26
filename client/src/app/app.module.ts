@@ -32,6 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SocketService } from './services/socket.service';
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 
 
 const firebaseApp = initializeApp(environment.firebaseConfig);
@@ -67,6 +68,7 @@ const auth = getAuth(firebaseApp);
   ],
   providers: [
     provideClientHydration(),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
     ChatService,
     SocketService,
     provideAnimationsAsync(),

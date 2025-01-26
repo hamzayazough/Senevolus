@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, Auth } from 'firebase/auth';
 import { SocketService } from '../../services/socket.service';
 
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -13,12 +12,11 @@ export class SignInComponent implements OnInit {
   email: string = '';
   password: string = '';
   isAuthenticated: boolean = false;
-
   private auth: Auth;
 
   constructor(
     private router: Router,
-    private socket: SocketService
+    private socket: SocketService,
   ) {
     this.auth = getAuth();
   }
@@ -44,6 +42,7 @@ export class SignInComponent implements OnInit {
         //console.log('Logged in successfully:', userCredential.user);
         this.isAuthenticated = true;
         this.socket.UID=userCredential.user.uid;
+        this.socket.connect();
       })
       .catch((error) => {
         console.error('Login error:', error.message);
@@ -57,6 +56,7 @@ export class SignInComponent implements OnInit {
         //console.log('Account created successfully:', userCredential.user);
         this.isAuthenticated = true;
         this.socket.UID=userCredential.user.uid;
+        this.socket.connect();
       })
       .catch((error) => {
         console.error('Account creation error:', error.message);
@@ -70,8 +70,8 @@ export class SignInComponent implements OnInit {
         console.log('Logged out successfully');
         this.isAuthenticated = false;
         this.socket.UID = '';
-        console.log(this.socket.UID);
         // Redirect or update UI
+        this.socket.disconnect();
       })
       .catch((error) => {
         console.error('Logout error:', error.message);
