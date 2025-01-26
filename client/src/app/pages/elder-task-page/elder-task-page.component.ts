@@ -21,6 +21,6 @@ export class ElderTaskPageComponent {
     private chatService : ChatService,
     private socket: SocketService
   ) {
-    this.socket.send('getListElder', {_id:this.socket.UID});
+    this.socket.send('getListElder', this.socket.UID);
   }
 }

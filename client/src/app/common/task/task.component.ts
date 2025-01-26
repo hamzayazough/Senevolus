@@ -13,12 +13,12 @@ import { SocketService } from '../../services/socket.service';
 export class TaskComponent {
   @Input() taskType : string = TaskType.SOCIAL;
   @Input() description : string = "Lorem ipsum dolrolasdjhbfdvndca as dashdhashdashdhas dhashdsahd sahdas";
-  @Input() distance : number = 0;
+  @Input() distance : string = '';
   @Input() creationDate : Date = new Date(2025, 0, 25, 0, 0, 0);
-  @Input() dueDate : Date = new Date(2025, 0, 26, 0, 0, 0);
-  @Input() duration : number = 2;
+  @Input() task_date : Date = new Date(2025, 0, 26, 0, 0, 0);
+  @Input() duration : string = '';
   @Input() taskStatus : string = TaskStatus.ACTIVE;
-  @Input() taskTitle : string = "TITRE BIDON";
+  @Input() title : string = "TITRE BIDON";
   get userType() {
     return this.socket.user.role;
   }

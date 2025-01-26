@@ -36,7 +36,6 @@ export class SignInComponent implements OnInit {
         this.socket.UID=userCredential.user.uid;
         this.socket.connect();
         this.socket.initializeConnectEvents();
-        this.socket.initializeFetchListEvents();
         this.socket.send("connect_getuser", this.socket.UID)
       })
       .catch((error) => {
@@ -77,6 +76,7 @@ export class SignInComponent implements OnInit {
   }
 
   home() {
+    this.socket.initializeFetchListEvents();
     if (this.socket.user.role == 'elder') {
       this.socket.send('getListElder')
       this.router.navigate([AppRoute.HOMEELDER])

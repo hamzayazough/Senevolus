@@ -53,18 +53,20 @@ export class SocketService {
 
     initializeConnectEvents() {
         this.socket.on('connect_getuser', (userData :any) => {
-            console.log(userData.data);
            this.user = userData.data;
-           console.log(this.user);
         });
     }
 
     initializeFetchListEvents() {
+        console.log("initializing events");
         if (this.user.role == 'elder'){
+            console.log("initializing elder");
             this.socket.on('gotListElder', (data:any) => {
-                this.tasks = data;
+                this.tasks = data.task;
+                console.log("gottem");
             });
         } else if (this.user.role == 'volunteer') {
+            console.log("initializing volunteer");
             this.socket.on('gotListVolunteer', (data:any) => {
                 this.tasks = data;
             });

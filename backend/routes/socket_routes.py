@@ -122,14 +122,15 @@ def socketio_handlers(socketio):
         print("Client connected")
 
     @socketio.on('getListElder')
-    def getList(data):
-        taskList = get_tasks_by_elder(data['_id'])
-        emit('gotListElder', taskList, to=request.sid)
+    def getListElder(data):
+        taskList = get_tasks_by_elder(data)
+        emit('gotListElder', {'task': taskList})
     
     @socketio.on('getListVolunteer')
-    def getList(data):
-        taskList = get_tasks_by_volunteer(data['_id'])
-        emit('gotListVolunteer', taskList, to=request.sid)
+    def getListVolunteer(data):
+        print(data)
+        taskList = get_tasks_by_volunteer(data)
+        emit('gotListVolunteer', {'task': taskList}, to=request.sid)
     
     @socketio.on('getMessages')
     def getMessages():
