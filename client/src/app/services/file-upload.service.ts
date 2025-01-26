@@ -17,10 +17,10 @@ export class FileUploadService {
     return this.http.post(this.apiUrl, formData);
   }
 
-  uploadSelfiePhoto(selfiePhoto: File) {
+  uploadSelfiePhoto(selfiePhoto: File, task_id:string) {
     const formData = new FormData();
-    formData.append('idPhoto', selfiePhoto);
-
+    formData.append('idSelfie', selfiePhoto);
+    formData.append('task_id', task_id);
     return this.http.post(this.apiSelfieUrl, formData);
   }
 }

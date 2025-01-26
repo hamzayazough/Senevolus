@@ -57,7 +57,7 @@ export class TaskComponent {
 
   completeTask() {
     this.dialog.open(EndTaskDialogComponent, {
-      data: { message: 'HEY BOZO' },
+      data: { task_id: this._id },
     });
   }
 
