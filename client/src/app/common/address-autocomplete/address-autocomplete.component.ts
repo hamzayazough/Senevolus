@@ -13,11 +13,11 @@ export class AddressAutocompleteComponent implements OnInit {
   @Input() initialPlaceName: string | null = '';
   @Input() initialApartmentNumber: string | null = '';
   @Output() addressSelected = new EventEmitter<Address>();
+  @Output() address: Address = {} as Address;
 
   addressControl = new FormControl();
   apartmentNumberControl = new FormControl();
   suggestions: any[] = [];
-  private address: Address = {} as Address;
   showSuggestionsList = false;
 
   constructor(private mapBoxService: MapBoxService) {}

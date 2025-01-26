@@ -25,7 +25,7 @@ export class SocketService {
         description: 'string',
         points: 2,
       };
-
+    tasks !: [any];
     constructor() {
     }
 
@@ -52,9 +52,24 @@ export class SocketService {
     }
 
     initializeConnectEvents() {
-        this.socket.on('connect_getuser', (userData : AppUser) => {
-           this.user = userData 
+        this.socket.on('connect_getuser', (userData :any) => {
+            console.log(userData.data);
+           this.user = userData.data;
+           console.log(this.user);
         });
+    }
+
+    initializeFetchListEvents() {
+        if (this.user.role == 'elder'){
+            this.socket.on('gotListElder', (data:any) => {
+                this.tasks = data;
+            });
+        } else if (this.user.role == 'volunteer') {
+            this.socket.on('gotListVolunteer', (data:any) => {
+                this.tasks = data;
+            });
+        }
+
     }
 }
 

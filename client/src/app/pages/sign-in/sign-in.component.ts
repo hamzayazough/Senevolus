@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, Auth } from 'firebase/auth';
 import { SocketService } from '../../services/socket.service';
+import { AppRoute } from '../constants';
+import { AppUser } from '../../interfaces/app-user';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +15,7 @@ export class SignInComponent implements OnInit {
   password: string = '';
   isAuthenticated: boolean = false;
   private auth: Auth;
-  
+
   constructor(
     private router: Router,
     private socket: SocketService,
@@ -34,6 +36,7 @@ export class SignInComponent implements OnInit {
         this.socket.UID=userCredential.user.uid;
         this.socket.connect();
         this.socket.initializeConnectEvents();
+        this.socket.initializeFetchListEvents();
         this.socket.send("connect_getuser", this.socket.UID)
       })
       .catch((error) => {
@@ -73,11 +76,13 @@ export class SignInComponent implements OnInit {
       });
   }
 
-  home(type: string) {
-    if (type === 'home') {
-      this.router.navigate(['/home']);
-    } else {
-      console.warn('Unknown home type');
+  home() {
+    if (this.socket.user.role == 'elder') {
+      this.socket.send('getListElder')
+      this.router.navigate([AppRoute.HOMEELDER])
+    } else if (this.socket.user.role == 'volunteer') {
+      this.socket.send('getListVolunteer')
+      this.router.navigate([AppRoute.HOMEVOLUNTEER])
     }
   }
 }

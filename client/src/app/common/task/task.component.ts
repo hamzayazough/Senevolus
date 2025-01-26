@@ -3,6 +3,7 @@ import { TaskStatus, TaskType, UserType } from '../../enum';
 import { Router } from '@angular/router';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { ChatService } from '../../services/chat-service/chat-service.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-task',
@@ -18,12 +19,15 @@ export class TaskComponent {
   @Input() duration : number = 2;
   @Input() taskStatus : string = TaskStatus.ACTIVE;
   @Input() taskTitle : string = "TITRE BIDON";
-  userType : string = "elder";
+  get userType() {
+    return this.socket.user.role;
+  }
 
 
   constructor(
     private router : Router,
-    private chatService : ChatService
+    private chatService : ChatService,
+    private socket : SocketService
   ) {
       
   }
