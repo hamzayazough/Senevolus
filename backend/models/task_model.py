@@ -1,12 +1,16 @@
 from db import mongo
 
-def add_task(task_data):
+def create_task(task_data):
     """Insert a new task into the TaskRequest collection."""
-    return mongo.db.TaskRequest.insert_one(task_data).inserted_id
+    mongo.db.TaskRequest.insert_one(task_data)
 
 def get_tasks_by_status(status):
     """Retrieve tasks with a specific status."""
     return list(mongo.db.TaskRequest.find({"status": status}))
+
+def get_tasks_by_elder_and_status(elder_id, status):
+    """Retrieve tasks with a specific status."""
+    return list(mongo.db.TaskRequest.find({"elder_id": elder_id, "status": status}))
 
 def get_tasks_by_elder(elder_id):
     """Retrieve tasks created by a specific elder."""
