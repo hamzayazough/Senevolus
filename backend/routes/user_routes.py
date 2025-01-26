@@ -1,8 +1,15 @@
 from flask import Blueprint, request, jsonify
 from models.user_model import add_user, update_user, get_user_by_id
 from services.ai_service import validate_id_and_face
-
+from models.user_model import get_all_users
 user_blueprint = Blueprint("user_routes", __name__)
+
+@user_blueprint.route('/test', methods=['GET'])
+def test_user_route():
+    """Test user route."""
+    print("User route works")
+    return jsonify({"message": "User route works"}), 200
+
 
 @user_blueprint.route('/<auth0_id>', methods=['POST'])
 def validate_user(auth0_id):
@@ -47,3 +54,9 @@ def get_user(auth0_id):
     if user:
         return jsonify(user), 200
     return jsonify({"error": "User not found"}), 404
+
+@user_blueprint.route('/all', methods=['GET'])
+def get_users():
+    """Retrieve all users."""
+    users = get_all_users()
+    return jsonify(users), 200
