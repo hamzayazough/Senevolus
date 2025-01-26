@@ -37,6 +37,8 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
+import { EndTaskDialogComponent } from './end-task-dialog/end-task-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 const firebaseApp = initializeApp(environment.firebaseConfig);
@@ -58,6 +60,7 @@ const auth = getAuth(firebaseApp);
     ShopProductComponent,
     CreateTaskComponent,
     AddressAutocompleteComponent,
+    EndTaskDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ const auth = getAuth(firebaseApp);
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
   ],
   providers: [
     provideClientHydration(),

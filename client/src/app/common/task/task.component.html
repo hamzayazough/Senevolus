@@ -31,52 +31,31 @@
   
     <!-- Bottom Row -->
     <div class="bottom-row">
-<<<<<<< HEAD
 
         <!-- Distance (middle right) -->
         <div class="distance">{{ distance }}</div>
         <div class="bottom-right">
             <!-- Status with dynamic color -->
-            <div *ngIf="this.taskStatus == 'accepted'" class="chat-icon" (click)="toggleChat()">CHAT</div>
-            <button *ngIf="this.taskStatus == 'published' && this.userType == 'elder'" (click)="removeTask()" class="trash-icon">TRASH</button>
+            <div *ngIf="this.taskStatus == 'accepted'" class="chat-icon" (click)="toggleChat()">
+              <i class="far fa-comments"></i>
+            </div>
+        
+            <div *ngIf="this.taskStatus == 'published' && this.userType == 'elder'" (click)="removeTask()" class="trash-icon">
+                <i class="fas fa-trash"></i>
+            </div>
+
             <button *ngIf="this.taskStatus == 'published' && this.userType != 'elder'"  (click)="acceptTask()" [ngClass]="{
                 'status': true,
             }">APPPLY
         </button>
-            <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'" [ngClass]="{
+            <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'" (click)="completeTask()" [ngClass]="{
                 'status': true,
                 'status-active': true
             }">
             Finish Task
             </div>
-    </div>
-
-=======
-      <div class="distance">{{ distance }}</div>
-      <div class="bottom-right">
-        <!-- Chat Icon -->
-        <div *ngIf="taskStatus === 'accepted'" class="chat-icon" (click)="toggleChat()">
-          CHAT
-        </div>
-        <!-- Trash Icon -->
-        <div *ngIf="taskStatus === 'published' && userType === 'elder'" class="trash-icon">
-          <i class="fas fa-trash"></i>
-        </div>
-        <!-- Apply Button -->
-        <div
-          *ngIf="taskStatus === 'published' && userType !== 'elder'"
-          class="status status-active"
-        >
-          {{ taskStatus === 'published' ? 'APPLY' : 'CANT APPLY' }}
-        </div>
-        <!-- Finish Task Button -->
-        <div
-          *ngIf="taskStatus === 'accepted' && userType !== 'elder'"
-          class="status status-active"
-        >
-          Finish Task
-        </div>
       </div>
->>>>>>> a8038cc6f224d081d911d29e9ec6282506085928
     </div>
   </div>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

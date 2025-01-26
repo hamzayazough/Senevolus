@@ -52,4 +52,8 @@ export class TaskComponent {
     this.socket.send('taskRemoved', {elder_id : this.socket.UID, task_id:this._id, volunteer_id:this.volunteer_id} )
   }
 
+  completeTask() {
+    
+  }
+
 }
