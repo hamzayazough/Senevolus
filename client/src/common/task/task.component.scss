@@ -1,0 +1,107 @@
+.task-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding and borders don't cause overflow */
+    overflow: hidden; /* Prevent any child elements from overflowing the container */
+  }
+  
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px; /* Space between top row and description */
+    flex-wrap: wrap; /* Allow items to wrap when needed */
+  }
+  
+  .task-type {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+    white-space: nowrap; /* Prevent task type text from wrapping */
+  }
+  
+  .dates,.bottom-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 5px;
+    padding-left: 10px;
+    flex-wrap: wrap; /* Allow dates to wrap if they don't fit */
+  }
+  
+  .date-creation,
+  .date-due, .chat-icon, .status, .duration, .trash-icon {
+    font-size: 0.9rem;
+    color: #888;
+    white-space: nowrap; /* Prevent wrapping of individual dates */
+  }
+  
+  .date-due, .duration {
+    border-left: 2px solid #ccc; /* Line separating created and due dates */
+    padding-left: 10px; /* Add space between the date and the line */
+  }
+  
+  .description {
+    font-size: 1rem;
+    color: #555;
+    text-align: left;
+    margin-bottom: 15px; /* Space between description and bottom row */
+    word-wrap: break-word; /* Allow long words to wrap to the next line */
+  }
+  
+  .bottom-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 5px;
+    padding-left: 10px;
+    flex-wrap: wrap; /* Allow dates to wrap if they don't fit */
+  }
+  
+  .distance {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  
+  .status-pending {
+    background-color: rgb(122, 19, 19);
+    color: rgb(190, 21, 21);
+  }
+  
+  .status-active {
+    background-color: #a8e6a0; /* pastel green */
+    color: white;
+  }
+
+  .bottom-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .separator-line {
+    width: 1px; /* Thin vertical line */
+    height: 30px; /* Height of the separator */
+    background-color: #ccc; /* Light gray color for the line */
+  }
+  .chat-icon, .trash-icon {
+    font-size: 1.5rem; /* Size of the chat icon */
+    color: #333; /* Color of the icon */
+  }
+  

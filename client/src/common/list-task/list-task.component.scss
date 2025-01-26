@@ -1,0 +1,9 @@
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adds space between each task */
+    width: 80%; /* Set width to 80% of the screen width */
+    height:100%;
+    margin: 0 auto; /* Center the list horizontally */
+  }
+  

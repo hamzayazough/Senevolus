@@ -1,0 +1,20 @@
+<app-app-header></app-app-header>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav-content class="leftNavContainer">
+        <mat-tab-group mat-stretch-tabs mat-align-tabs="center">
+            <mat-tab label="My published tasks">
+                <app-list-task class="task-list"></app-list-task>
+            </mat-tab>
+            <mat-tab label="My active tasks">
+                <app-list-task class="task-list"></app-list-task>
+            </mat-tab>
+        </mat-tab-group>
+    
+    </mat-sidenav-content>
+    <mat-sidenav #sidenav mode="side" position="end" [(opened)]="opened">
+        <div class="chatContainer">
+            <app-chat class="chat"></app-chat>
+        </div>
+    </mat-sidenav>
+  
+</mat-sidenav-container>

@@ -1,0 +1,18 @@
+.shop-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); // Adjust the minmax for square size
+      gap: 20px;
+      justify-content: center;
+    }
+  }

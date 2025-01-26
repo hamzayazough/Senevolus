@@ -1,0 +1,69 @@
+/* Container for the entire chat application */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* You can adjust the height */
+    width: 100%;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+/* Messages container */
+.messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto; /* Make it scrollable */
+    display: flex;
+    flex-direction: column-reverse; /* Messages appear at the top */
+}
+
+/* Message styles */
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 75%;
+    word-wrap: break-word;
+}
+
+.received {
+    background-color: #e1f7d5; /* Light green for received messages */
+    align-self: flex-start; /* Align received messages to the left */
+}
+
+.sent {
+    background-color: #d5e1f7; /* Light blue for sent messages */
+    align-self: flex-end; /* Align sent messages to the right */
+}
+
+/* Input and Send button container */
+.input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+}
+
+/* Input field style */
+.message-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Send button style */
+.send-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.send-button:hover {
+    background-color: #0056b3;
+}
