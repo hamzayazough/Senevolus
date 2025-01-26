@@ -7,37 +7,35 @@ import { SocketService } from '../socket.service';
 export class ChatService {
   opened : boolean = false;
   chatMessages : any = [{
-    name : 'mina',
-    message : 'LOLOLOL',
+    name : 'elder',
+    message : 'LOLaaaaaaaaaaaaOL',
     type : 'received'
   },
   {
-    name : 'alfredo',
-    message : 'LOLOLOL',
+    name : 'volunteer',
+    message : 'LOLaaaaaaaaaaaOLOL',
     type : 'sent'
   }];
 
 
   constructor(
-    private socketService: SocketService
+    public socketService: SocketService
   ) { 
-    this.initializeEvents();
-    this.socketService.send('getMessages');
+    
   }
 
   sendMessage(name : string, message : string) {
-    this.chatMessages.push({name: name, message : message, type : 'sent'});
     this.socketService.send('sendMessage', {name: name, message: message, type : 'received'})
   }
 
   initializeEvents() {
-    this.socketService.on('receiveMessage', (message:any) => {
-      this.chatMessages.push({name:message.name, message:message.message, type:'received'});
-    });
-
     this.socketService.on('gotMessages', (messages:[{name : string, message : string}]) => {
       this.chatMessages = messages;
     });
+  }
+
+  getMessages() {
+    this.socketService.send('getMessages')
   }
 
   toggleChat() {
