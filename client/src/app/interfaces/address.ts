@@ -1,5 +1,5 @@
 export interface Address {
-  location: [number, number];
-  place?: string;
-  id?: string;
+  longitude: number;
+  latitude: number;
+  place: string;
 }
