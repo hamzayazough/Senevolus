@@ -25,13 +25,11 @@
             <!-- Status with dynamic color -->
             <div *ngIf="this.taskStatus == 'accepted'" class="chat-icon" (click)="toggleChat()">CHAT</div>
             <div *ngIf="this.taskStatus == 'published' && this.userType == 'elder'" class="trash-icon">TRASH</div>
-            <div *ngIf="this.taskStatus == 'published' && this.userType != 'elder'"   [ngClass]="{
+            <button *ngIf="this.taskStatus == 'published' && this.userType != 'elder'"  (click)="acceptTask()" [ngClass]="{
                 'status': true,
-                'status-active': true
-            }">
-          {{ taskStatus == 'published' ? 'APPLY' : 'CANT APPLY' }}>
-        </div>
-            <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'"   [ngClass]="{
+            }">APPPLY
+        </button>
+            <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'"  [ngClass]="{
                 'status': true,
                 'status-active': true
             }">
