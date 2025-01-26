@@ -47,7 +47,8 @@ export class AddressAutocompleteComponent implements OnInit {
 
   selectSuggestion(suggestion: any): void {
     this.address = {
-      location: suggestion.geometry.coordinates,
+      longitude: suggestion.geometry.coordinates[0],
+      latitude: suggestion.geometry.coordinates[1],
       place: suggestion.place_name,
     };
     this.addressControl.setValue(suggestion.place_name);
