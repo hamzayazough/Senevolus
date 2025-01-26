@@ -21,6 +21,6 @@ export class FileUploadService {
     const formData = new FormData();
     formData.append('idPhoto', selfiePhoto);
 
-    return this.http.post(apiSelfieUrl, formData);
+    return this.http.post(this.apiSelfieUrl, formData);
   }
 }
