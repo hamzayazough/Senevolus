@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TaskStatus, TaskType, UserType } from '../../enum';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { ChatService } from '../../services/chat-service/chat-service.service';
 
@@ -19,15 +18,14 @@ export class TaskComponent {
   @Input() duration : number = 2;
   @Input() taskStatus : string = TaskStatus.ACTIVE;
   @Input() taskTitle : string = "TITRE BIDON";
-  userType : string = "";
+  userType : string = "elder";
 
 
   constructor(
     private router : Router,
-    private authService : AuthService,
     private chatService : ChatService
   ) {
-      this.userType = this.authService.userType;
+      
   }
   navigate(adress : string) : void {
     this.router.navigate([adress]);

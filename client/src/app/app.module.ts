@@ -12,7 +12,6 @@ import { CreateProfileComponent } from './pages/create-profile/create-profile.co
 import { AppHeaderComponent } from './common/app-header/app-header.component';
 import { TaskComponent } from './common/task/task.component';
 import { ListTaskComponent } from './common/list-task/list-task.component';
-import { AuthService } from '@auth0/auth0-angular';
 import { ElderTaskPageComponent } from './pages/elder-task-page/elder-task-page.component';
 import { ChatComponent } from './common/chat/chat.component';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -25,6 +24,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { ShopProductComponent } from './pages/shop/shop-product/shop-product.component';
 import { CreateTaskComponent } from './pages/create-task/create-task.component';
+import { provideAuth0 } from '@auth0/auth0-angular';
+
 
 @NgModule({
   declarations: [
@@ -49,11 +50,14 @@ import { CreateTaskComponent } from './pages/create-task/create-task.component';
     AppRoutingModule,
     FormsModule,
     MatTabsModule,
-    MatSidenavModule
+    MatSidenavModule,
   ],
   providers: [
+    provideAuth0({
+      domain: 'dev-ibta2mockraiqpl3.us.auth0.com',
+      clientId: 'qFnDGnuvJx22LvmoEgmja8UYyGrjJdR4',
+    }),
     provideClientHydration(),
-    AuthService,
     ChatService,
     provideAnimationsAsync()
   ],

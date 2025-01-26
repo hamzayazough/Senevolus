@@ -1,6 +1,13 @@
 <div>
   <p>SeneVolus</p>
-  <button (click)="home('createProfile')">Google Login</button>
+  @if(isAuthenticated) {
+    <button
+      (click)="logout()">
+      Log out
+    </button>
+    } @else {
+    <button (click)="login()">Log in</button>
+    }
   <button (click)="home('home')">HomeVieux</button>
   <button (click)="home('home')">HomeBenevole</button>
 </div>
