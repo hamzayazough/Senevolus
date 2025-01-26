@@ -2,6 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 from decouple import config
 from db import mongo, socketio
+from services.ai_service import initialize_services
+
 
 def create_app():
     app = Flask(__name__)
@@ -15,6 +17,10 @@ def create_app():
     socketio.init_app(app)
     CORS(app)
 
+    with app.app_context():
+        print("Initializing AI services...")
+        initialize_services()
+
     # Function to register blueprints
     def register_blueprints(app):
         from routes.user_routes import user_blueprint
@@ -26,15 +32,6 @@ def create_app():
         socketio_handlers(socketio)
 
     register_blueprints(app)
-
-    @app.route('/test-mongo', methods=['GET'])
-    def test_mongo():
-        """Test MongoDB connection."""
-        try:
-            db_names = mongo.cx.list_database_names()
-            return {"status": "success", "databases": db_names}, 200
-        except Exception as e:
-            return {"status": "error", "message": str(e)}, 500
 
     return app
 
