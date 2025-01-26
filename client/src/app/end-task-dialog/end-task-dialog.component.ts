@@ -68,7 +68,7 @@ export class EndTaskDialogComponent {
       const selfiePhotoFile = this.dataURLtoFile(this.capturedImage, 'idPhoto.png');
   
       // Upload the files using the FileUploadService
-      this.fileUploadService.uploadSelfiePhoto(selfiePhotoFile).subscribe(
+      this.fileUploadService.uploadSelfiePhoto(selfiePhotoFile, this.data.task_id).subscribe(
         (response) => {
           console.log('Upload successful:', response);
           // Proceed with form submission

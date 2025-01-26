@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocketService } from '../../services/socket.service';
+import { AppRoute } from '../constants';
 
 @Component({
   selector: 'app-profile',
@@ -31,5 +32,10 @@ export class ProfileComponent {
 
   get photo_id(){
     return this.socket.user.photo_id;
+  }
+
+  logout() {
+    this.socket.disconnect();
+    this.router.navigate([AppRoute.SIGNIN]);
   }
 }
