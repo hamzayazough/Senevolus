@@ -19,11 +19,11 @@
     <div class="image-radio">
       <label for="category">Category</label>
       <label>
-        <input type="radio" name="category" value="mental" />
+        <input type="radio" (change)="onCategoryChange($event)" name="category" value="moral" />
         <img src="assets/images/brain-logo.png" class="logo" alt="Mental Support" />
       </label>
       <label>
-        <input type="radio" name="category" value="physical" />
+        <input type="radio" (change)="onCategoryChange($event)" name="category" value="physical" />
         <img src="assets/images/muscle-logo.png" class="logo" alt="Physical Support" />
       </label>
     </div>
