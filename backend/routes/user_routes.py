@@ -11,8 +11,8 @@ def test_user_route():
     return jsonify({"message": "User route works"}), 200
 
 
-@user_blueprint.route('/<auth0_id>', methods=['POST'])
-def validate_user(auth0_id):
+@user_blueprint.route('/', methods=['POST'])
+def validate_user():
     """Validate user images."""
     id_card = request.files.get('id_card')
     face_image = request.files.get('face_image')

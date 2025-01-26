@@ -2,20 +2,26 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppUser } from '../interfaces/app-user';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  private baseUrl: string = environment.apiUrl + '/profile';
+  private baseUrl: string = environment.serverUrl + '/api/users';
   public user$: BehaviorSubject<AppUser | null> =
     new BehaviorSubject<AppUser | null>(null);
 
   constructor(private http: HttpClient) {}
-  setUser(user: AppUser): void {
-    this.user$.next(user);
+
+  public validateUser(idCard: File, faceImage: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('id_card', idCard);
+    formData.append('face_image', faceImage);
+
+    return this.http.post<any>(`${this.baseUrl}/validate`, formData);
   }
+
 
   public createUser(user: AppUser): Observable<AppUser> {
     return this.http.post<AppUser>(this.baseUrl, user);
@@ -25,7 +31,4 @@ export class ProfileService {
     return this.http.get<AppUser>(`${this.baseUrl}/${userId}`);
   }
 
-  public updateUser(user: AppUser): Observable<AppUser> {
-    return this.http.put<AppUser>(`${this.baseUrl}/${user._id}`, user);
-  }
 }

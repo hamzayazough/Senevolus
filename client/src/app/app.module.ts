@@ -36,7 +36,9 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 const firebaseApp = initializeApp(environment.firebaseConfig);
@@ -72,7 +74,8 @@ const auth = getAuth(firebaseApp);
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatRadioModule,
+    MatStepperModule
   ],
   providers: [
     provideClientHydration(),
