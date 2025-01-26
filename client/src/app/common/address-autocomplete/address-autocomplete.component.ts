@@ -22,6 +22,15 @@ export class AddressAutocompleteComponent implements OnInit {
 
   constructor(private mapBoxService: MapBoxService) {}
 
+  getAddress() {
+    return this.address;
+  }
+  // Emit the address change event
+  onAddressChange(newAddress: any) {
+    this.address = newAddress;
+    this.addressSelected.emit(this.address);
+  }
+
   ngOnInit(): void {
     if (this.initialPlaceName) {
       this.addressControl.setValue(this.initialPlaceName);
@@ -29,7 +38,8 @@ export class AddressAutocompleteComponent implements OnInit {
     }
     if (this.initialApartmentNumber) {
       this.apartmentNumberControl.setValue(this.initialApartmentNumber);
-      this.address.location = [0, 0];
+      this.address.latitude = 0;
+      this.address.longitude = 0;
     }
 
     this.addressControl.valueChanges
