@@ -1,7 +1,14 @@
 export const environment = {
     production: false,
-    auth: {
-        domain:'dev-ibta2mockraiqpl3.us.auth0.com',
-        clientId:'qFnDGnuvJx22LvmoEgmja8UYyGrjJdR4'
-    }
-}
+    serverUrl: 'http://localhost:3000/api',
+    webSocketUrl: 'localhost:3000',
+    firebaseConfig: {
+        apiKey: 'AIzaSyD7d6N-J2vMLA2YBLPNxrccYX5IAdvHQ0I',
+        authDomain: 'log2990-a70fd.firebaseapp.com',
+        projectId: 'log2990-a70fd',
+        storageBucket: 'log2990-a70fd.appspot.com',
+        messagingSenderId: '450039173347',
+        appId: '1:450039173347:web:1dcc364d605469d8f575d6',
+        measurementId: 'G-QKZFS70VT1',
+    },
+};
