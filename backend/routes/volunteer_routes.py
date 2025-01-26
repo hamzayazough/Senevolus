@@ -14,7 +14,7 @@ def volunteer_tasks(auth0_id):
 @volunteer_blueprint.route('/volunteer/<auth0_id>/new-task-requests', methods=['GET'])
 def new_task_requests(auth0_id):
     res = {}
-    all_tasks = get_tasks_by_volunteer(auth0_id)
+    all_tasks = get_tasks_by_volunteer(auth0_id)  # to change
     for task in all_tasks:
         if task['status'] == 'pending':
             res.update(task)
