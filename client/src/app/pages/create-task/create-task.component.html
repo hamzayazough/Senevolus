@@ -16,26 +16,28 @@
     </div>
 
     <!-- Category -->
-    <div class="image-radio">
-      <label for="category">Category</label>
-      <label>
-        <input type="radio" name="category" value="mental" />
-        <img src="assets/images/brain-logo.png" class="logo" alt="Mental Support" />
-      </label>
-      <label>
-        <input type="radio" name="category" value="physical" />
-        <img src="assets/images/muscle-logo.png" class="logo" alt="Physical Support" />
-      </label>
+    <div class="form-group">
+      <label>Category</label>
+      <div class="image-radio">
+        <label>
+          <input type="radio" name="category" value="mental" />
+          <img src="assets/images/brain_logo.jpg" class="logo" alt="Mental Support" />
+        </label>
+        <label>
+          <input type="radio" name="category" value="physical" />
+          <img src="assets/images/muscle_logo.jpg" class="logo" alt="Physical Support" />
+        </label>
+      </div>
     </div>
 
     <!-- Description -->
     <div class="form-group">
-      <label for="description">Explain what you need help for...</label>
+      <label for="description">Description</label>
       <textarea
         id="description"
         name="description"
         [(ngModel)]="taskData.description"
-        placeholder="Enter task description"
+        placeholder="Explain what you need help for..."
         rows="4"
         required
       ></textarea>

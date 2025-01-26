@@ -4,38 +4,42 @@ $white: #FFFFFF;
 $light-gray: #F5F5F5;
 $dark-gray: #333333;
 
-// General Styles
+// Global Styles
 body {
   font-family: 'Arial', sans-serif;
-  background-color: $light-gray;
+  background: linear-gradient(to bottom right, #f0e6f6, #e0f7fa); // Pastel gradient
   color: $dark-gray;
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  min-height: 100vh;
 }
 
 // Profile Container
 .profile-container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
+  max-width: 500px; // Slightly narrower for a cleaner look
+  margin: 40px auto;
+  padding: 30px;
   background-color: $white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); // Softer shadow
+  text-align: center;
 
-  // Profile Picture Label
-  .profile-pic-label {
-    font-size: 1.5em;
-    color: $light-blue;
-    text-align: center;
+  // Profile Picture
+  .profile-pic {
+    width: 120px; // Smaller size for minimalism
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid $light-blue; // Thin border
     margin-bottom: 20px;
+    object-fit: cover;
   }
 
   // Form Styles
   .profile-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px; // Consistent spacing
 
     .form-group {
       display: flex;
@@ -43,27 +47,10 @@ body {
       gap: 5px;
 
       .form-label {
-        font-size: 1.2em;
+        font-size: 1.1em; // Slightly smaller font
         color: $dark-gray;
-      }
-
-      .form-input {
-        padding: 10px;
-        font-size: 1em;
-        border: 1px solid $light-purple;
-        border-radius: 5px;
-        background-color: $white;
-        color: $dark-gray;
-        transition: border-color 0.3s ease;
-
-        &:focus {
-          border-color: $light-blue;
-          outline: none;
-        }
-      }
-
-      textarea.form-input {
-        resize: vertical; // Allow vertical resizing
+        margin: 0;
+        font-weight: 400; // Lighter font weight
       }
     }
 
@@ -73,24 +60,31 @@ body {
       color: $dark-gray;
       border: none;
       padding: 10px 20px;
-      font-size: 1.1em;
+      font-size: 1em; // Smaller font
       border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%; // Full-width button
+      max-width: 200px; // Limit button width
+      margin: 0 auto; // Center the button
 
       &:hover {
-        background-color: darken($light-blue, 10%); // Slightly darker blue on hover
+        background-color: darken($light-blue, 10%);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
       }
 
       &:focus {
-        outline: 3px solid $dark-gray; // Dark gray outline for focus states
+        outline: 2px solid $dark-gray; // Subtle focus outline
       }
     }
   }
 }
 
 // Accessibility Enhancements
-.form-input:focus,
 .submit-button:focus {
-  outline: 3px solid $dark-gray; // Dark gray outline for focus states
+  outline: 2px solid $dark-gray; // Subtle outline for focus states
 }
