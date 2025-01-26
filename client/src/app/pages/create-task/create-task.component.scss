@@ -1,122 +1,139 @@
+// Color Variables
+$pastel-blue: #A2D5F2; // Light blue
+$pastel-purple: #CABBE9; // Light purple
+$pastel-pink: #FFD1DC; // Light pink
+$pastel-green: #C1E1C1; // Light green
+$white: #FFFFFF;
+$light-gray: #F5F5F5;
+$dark-gray: #333333;
+
+// Global Styles
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom right, $pastel-purple, $pastel-blue); // Pastel gradient
+  color: $dark-gray;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+// Create Task Container
 .create-task-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 20px;
-    }
-  
-    .task-form {
+  max-width: 500px; // Narrower for a cleaner look
+  margin: 40px auto;
+  padding: 30px;
+  background-color: $white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Soft shadow
+  text-align: center;
+
+  h1 {
+    font-size: 1.8em; // Larger heading
+    color: $pastel-purple; // Pastel purple for the heading
+    margin-bottom: 20px;
+    font-weight: 600; // Bold for emphasis
+  }
+
+  .task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; // Consistent spacing
+
+    .form-group {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-  
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-  
-        label {
-          font-size: 1.1em;
-          color: #333;
+      gap: 8px;
+
+      label {
+        font-size: 1em; // Smaller font
+        color: $pastel-purple; // Pastel purple for labels
+        font-weight: 500; // Medium weight
+      }
+
+      input,
+      textarea {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid $pastel-blue; // Pastel blue border
+        border-radius: 8px;
+        background-color: $light-gray; // Light gray background
+        color: $dark-gray;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        &:focus {
+          border-color: $pastel-pink; // Pastel pink on focus
+          box-shadow: 0 0 8px rgba($pastel-pink, 0.3); // Soft glow
+          outline: none;
         }
-  
-        input, textarea, select {
-          padding: 10px;
-          font-size: 1em;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          background-color: #f9f9f9;
-          transition: border-color 0.3s ease;
-  
-          &:focus {
-            border-color: #A2D5F2;
-            outline: none;
+      }
+
+      textarea {
+        resize: vertical; // Allow vertical resizing
+      }
+    }
+
+    // Image Radio Buttons
+    .image-radio {
+      display: flex;
+      justify-content: center;
+      gap: 20px; // Space between images
+
+      label {
+        cursor: pointer;
+
+        img {
+          width: 80px; // Default size
+          height: 80px;
+          border: 2px solid transparent;
+          border-radius: 8px;
+          transition: all 0.3s ease; // Smooth transition for all properties
+        }
+
+        // Hover effect
+        &:hover img {
+          transform: scale(1.1); // Slightly larger on hover
+          border-color: $pastel-blue; // Pastel blue border on hover
+        }
+
+        // Click effect (when radio is selected)
+        input[type="radio"] {
+          display: none; // Hide the radio button
+
+          &:checked + img {
+            transform: scale(1.1); // Slightly larger when selected
+            border-color: $pastel-pink; // Pastel pink border when selected
           }
         }
-  
-        textarea {
-          resize: vertical; // Allow vertical resizing
-        }
       }
-  
-      .submit-button {
-        background-color: #A2D5F2;
-        color: #333;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1.1em;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-  
-        &:hover {
-          background-color: darken(#A2D5F2, 10%);
-        }
+    }
+
+    // Submit Button
+    .submit-button {
+      background-color: $pastel-pink; // Pastel pink for the button
+      color: $dark-gray;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%; // Full-width button
+      max-width: 200px; // Limit button width
+      margin: 0 auto; // Center the button
+
+      &:hover {
+        background-color: darken($pastel-pink, 10%); // Darker pink on hover
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &:focus {
+        outline: 2px solid $pastel-purple; // Pastel purple outline for focus
       }
     }
   }
-  .image-radio input[type="radio"] {
-    display: none; /* Hide the actual radio buttons */
-  }
-  
-  .image-radio label img {
-    border: 2px solid transparent; /* Default border */
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-  }
-  
-  .image-radio input[type="radio"]:checked + img {
-    border-color: #007bff; /* Highlight selected image */
-  }
-  // .radio-group {
-  // display: flex;
-  // flex-direction: column;
-  // gap: 10px;
-
-  // .radio-option {
-  //   display: flex;
-  //   align-items: center;
-  //   cursor: pointer;
-  //   font-size: 16px;
-  //   color: #333;
-  //   padding: 10px;
-  //   border: 2px solid #ddd;
-  //   border-radius: 8px;
-  //   transition: all 0.3s ease;
-
-  //   input[type="radio"] {
-  //     display: none; // Hide the default radio button
-
-  //     + .radio-label {
-  //       display: flex;
-  //       align-items: center;
-  //       gap: 10px;
-
-  //       &::before {
-  //         content: '';
-  //         width: 20px;
-  //         height: 20px;
-  //         border: 2px solid #A2D5F2;
-  //         border-radius: 50%;
-  //         background-color: #fff;
-  //         transition: all 0.3s ease;
-  //       }
-  //     }
-
-  //     &:checked + .radio-label::before {
-  //       background-color: #A2D5F2;
-  //       border-color: #A2D5F2;
-  //       box-shadow: inset 0 0 0 4px #fff; // Inner circle for checked state
-  //     }
-  //   }
-
-    :hover {
-      border-color: #A2D5F2;
-    }
+}

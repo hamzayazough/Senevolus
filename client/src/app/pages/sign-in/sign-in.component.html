@@ -1,9 +1,13 @@
 <div class="auth-container">
+  <!-- Big Modern Title Above the Box -->
+  <h1 class="auth-title">SeneVolus</h1>
+
+  <!-- Auth Card -->
   <mat-card class="auth-card">
-    <mat-card-title>SeneVolus</mat-card-title>
     <mat-card-content>
       <div *ngIf="!isAuthenticated">
         <form #authForm="ngForm" class="auth-form">
+          <!-- Email Field -->
           <mat-form-field appearance="outline" class="form-field" floatLabel="always">
             <mat-label>Email</mat-label>
             <input
@@ -18,6 +22,7 @@
             <mat-error *ngIf="emailInput.invalid && emailInput.touched">Please enter a valid email</mat-error>
           </mat-form-field>
 
+          <!-- Password Field -->
           <mat-form-field appearance="outline" class="form-field" floatLabel="always">
             <mat-label>Password</mat-label>
             <input
@@ -32,6 +37,7 @@
             <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">Password is required</mat-error>
           </mat-form-field>
 
+          <!-- Buttons -->
           <div class="button-container">
             <button mat-raised-button color="primary" [disabled]="authForm.invalid" (click)="login()">
               Log In
@@ -43,12 +49,14 @@
         </form>
       </div>
 
+      <!-- Logged In State -->
       <div *ngIf="isAuthenticated" class="logout-container">
         <p>Welcome! You are logged in.</p>
         <button mat-raised-button color="warn" (click)="logout()">Log Out</button>
       </div>
     </mat-card-content>
 
+    <!-- Home Button (Logged In) -->
     <mat-card-actions *ngIf="isAuthenticated">
       <button mat-stroked-button color="primary" (click)="home()">Home</button>
     </mat-card-actions>
