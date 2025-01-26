@@ -25,11 +25,6 @@ export class AddressAutocompleteComponent implements OnInit {
   getAddress() {
     return this.address;
   }
-  // Emit the address change event
-  onAddressChange(newAddress: any) {
-    this.address = newAddress;
-    this.addressSelected.emit(this.address);
-  }
 
   ngOnInit(): void {
     if (this.initialPlaceName) {
@@ -77,11 +72,5 @@ export class AddressAutocompleteComponent implements OnInit {
     }, 2000);
   }
 
-  setApartmentNumber(event: any): void {
-    const updatedAddress = {
-      ...this.address,
-      apartmentNumber: event.target.value,
-    };
-    this.addressSelected.emit(updatedAddress);
-  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRoute } from '../constants';
 import { SocketService } from '../../services/socket.service';
@@ -26,11 +26,12 @@ export class CreateProfileComponent implements AfterViewInit {
   role: string = '';
   address: Address = { longitude: 0, latitude: 0, place: '' };
 
+
   constructor(private router: Router, private socket: SocketService) {}
   onCategoryChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.role = target.value;
-    console.log('Selected category:', this.role); // You can use this variable as needed
+    console.log('Selected category:', this.role);
   }
 
   ngAfterViewInit() {
@@ -38,6 +39,8 @@ export class CreateProfileComponent implements AfterViewInit {
   }
 
   onAddressChange(newAddress: Address) {
+    console.log('Address changed:', newAddress);
+
     this.address = newAddress;
   }
 

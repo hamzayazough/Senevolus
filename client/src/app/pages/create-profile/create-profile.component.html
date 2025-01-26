@@ -119,8 +119,7 @@
     </div>
 
     <!-- Address -->
-    <app-address-autocomplete></app-address-autocomplete>
-
+    <app-address-autocomplete (addressSelected)="onAddressChange($event)"></app-address-autocomplete>    
     <!-- Submit Button -->
     <div class="form-group">
       <button type="submit">Submit</button>
