@@ -5,7 +5,7 @@ import { UserType } from '../../enum';
   providedIn: 'root'
 })
 export class AuthService {
-  userType : string = UserType.VOLUNTEER;
+  userType : string = UserType.ELDER;
 
 
   constructor() { }

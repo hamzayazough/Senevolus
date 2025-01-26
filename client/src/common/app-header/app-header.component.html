@@ -1,6 +1,5 @@
 <div id="header">
-    <img src="src/assets/logo.png" alt="Logo of Senevolus" (click)="navigate('home')">
-
+    <img src="assets/logo.png" class="logo" alt="Logo of Senevolus" (click)="navigate('home')">
     <div id="control-icons">
         <p *ngIf="this.type=='elder'" (click)="navigate('elderTaskPage')">MY TASK</p>
         <p *ngIf="this.type=='elder'" (click)="navigate('create-task')">CREATE TASK</p>
