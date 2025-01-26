@@ -34,6 +34,10 @@ def delete_task(task_id):
     """Delete a specific task by its ID."""
     return mongo.db.TaskRequest.delete_one({"_id": task_id})
 
+def get_elder_id_from_task(task_request_id):
+    """Retrieve the elder ID associated with a specific task request ID."""
+    return mongo.db.TaskRequest.find_one({"_id": task_request_id})['elder_id']
+
 def confirm_task_completion(volunteer_id, task_id, images):
     """Confirm task completion by a volunteer."""
     task = mongo.db.TaskRequest.find_one({"_id": task_id})
