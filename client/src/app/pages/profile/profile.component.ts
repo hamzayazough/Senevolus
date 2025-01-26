@@ -28,4 +28,8 @@ export class ProfileComponent {
   get description(){
     return this.socket.user.description;
   }
+
+  get photo_id(){
+    return this.socket.user.photo_id;
+  }
 }

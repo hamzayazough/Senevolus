@@ -48,7 +48,6 @@
       </label>
     </div>
 
-    <!-- Age -->
     <div class="form-group">
       <div class="name-section">
         <label for="age">Age</label>
@@ -67,21 +66,21 @@
       <h2>Take ID Photo</h2>
       <video #videoElement autoplay></video>
       <canvas #canvasElement style="display: none"></canvas>
-      <button (click)="startCamera()">Start Camera</button>
-      <button (click)="takePicture()">Take Picture</button>
-      <button (click)="stopCamera()">Stop Camera</button>
-      <button (click)="nextStep()">Next</button>
+      <button type="button" (click)="startCamera()">Start Camera</button>
+      <button type="button" (click)="takePicture()">Take Picture</button>
+      <button type="button" (click)="stopCamera()">Stop Camera</button>
+      <button type="button" (click)="nextStep()">Next</button>
     </div>
 
     <div *ngIf="step === 2">
       <h2>Take Person Photo</h2>
       <video #videoElement autoplay></video>
       <canvas #canvasElement style="display: none"></canvas>
-      <button (click)="startCamera()">Start Camera</button>
-      <button (click)="takePicture()">Take Picture</button>
-      <button (click)="stopCamera()">Stop Camera</button>
-      <button (click)="previousStep()">Previous</button>
-      <button (click)="onSubmit()">Submit</button>
+      <button type="button" (click)="startCamera()">Start Camera</button>
+      <button type="button" (click)="takePicture()">Take Picture</button>
+      <button type="button" (click)="stopCamera()">Stop Camera</button>
+      <button type="button" (click)="previousStep()">Previous</button>
+      <button type="button" (click)="validate()">Submit</button>
     </div>
     <!-- Navigation Between Steps -->
     <div class="step-navigation">

@@ -1,0 +1,25 @@
+.image-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-dialog-title {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

@@ -5,10 +5,10 @@ import { SocketService } from '../../services/socket.service';
 import { AppUser } from '../../interfaces/app-user';
 import { AddressAutocompleteComponent } from '../../common/address-autocomplete/address-autocomplete.component';
 import { Address } from '../../interfaces/address';
-import { FileUploadService } from '../../services/file-upload.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
-
+import { UploadSuccessComponent } from './upload-success/upload-success.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-create-profile',
   templateUrl: './create-profile.component.html',
@@ -29,26 +29,17 @@ export class CreateProfileComponent implements AfterViewInit {
   role: string = '';
   address: Address = { longitude: 0, latitude: 0, place: '' };
 
-  // Reactive form for address and biography
-  personalInfoForm: FormGroup;
   addressBioForm: FormGroup;
 
   constructor(
     private router: Router,
     private socket: SocketService,
-    private fileUploadService: FileUploadService,
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private profileService: ProfileService
   ) {
 
-    this.personalInfoForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      age: [null, [Validators.required, Validators.min(1)]],
-      role: ['', Validators.required],
-    });
 
-    // Initializing the reactive form with required fields
     this.addressBioForm = this.fb.group({
       biography: ['', Validators.required],
     });
@@ -142,39 +133,47 @@ export class CreateProfileComponent implements AfterViewInit {
     address: { longitude: 0, latitude: 0, place: '' },
     username: '',
   };
-  
 
-  onSubmit(): void {
+
+  validate(): void {
     if (
       this.idPhoto &&
       this.personPhoto &&
-      this.personalInfoForm.valid &&
-      this.addressBioForm.valid
+      this.socket.UID
     ) {
       const idPhotoFile = this.dataURLtoFile(this.idPhoto, 'idPhoto.png');
       const personPhotoFile = this.dataURLtoFile(this.personPhoto, 'personPhoto.png');
-
-      this.profileService.validateUser(idPhotoFile, personPhotoFile).subscribe(
+      console.log('Files:', idPhotoFile, personPhotoFile);
+      this.profileService.validateUser(this.socket.UID, idPhotoFile, personPhotoFile).subscribe(
         (response) => {
           console.log('Validation successful:', response);
-
-          // Prepare the formData object with all required fields
-          this.formData._id = this.socket.UID;
-          this.formData.role = this.personalInfoForm.get('role')?.value;
-          this.formData.firstName = this.personalInfoForm.get('firstName')?.value;
-          this.formData.lastName = this.personalInfoForm.get('lastName')?.value;
-          this.formData.age = this.personalInfoForm.get('age')?.value;
-          this.formData.description = this.addressBioForm.get('biography')?.value;
-          this.formData.address = this.address;
-
-          // Upload the images and submit the formData
-          this.fileUploadService.uploadPhotos(idPhotoFile, personPhotoFile).subscribe(
+          this.profileService.saveImages(this.socket.UID, idPhotoFile, personPhotoFile).subscribe(
             (uploadResponse) => {
               console.log('Upload successful:', uploadResponse);
-              this.submitFormData(); // Proceed with submitting the form
+              this.formData.id_card = uploadResponse.id_photo_url;
+              this.formData.photo_id = uploadResponse.person_photo_url;
+
+              const dialogRef = this.dialog.open(UploadSuccessComponent, {
+                data: {
+                  message: 'Verification went successful!',
+                  idCard: uploadResponse.id_photo_url,
+                  personPhoto: uploadResponse.person_photo_url,
+                },
+              });
+              setTimeout(() => {
+                dialogRef.close();
+              }, 3000);
             },
             (uploadError) => {
               console.error('Upload failed:', uploadError);
+              const dialogRef = this.dialog.open(UploadSuccessComponent, {
+                data: {
+                  message: 'Oups! Seems suspicious, please try again!',
+                },
+              });
+              setTimeout(() => {
+                dialogRef.close();
+              }, 3000);
             }
           );
         },
@@ -183,6 +182,24 @@ export class CreateProfileComponent implements AfterViewInit {
         }
       );
     } else {
+      console.error('All fields, including photos and biography, are required.');
+    }
+  }
+
+  
+
+  onSubmit(): void {
+    if (
+      this.formData.id_card &&
+      this.formData.photo_id &&
+      this.role
+    ) {
+      // Prepare the formData object with all required fields
+      this.formData._id = this.socket.UID;
+      this.formData.role = this.role;
+      this.formData.address = this.address;
+      this.submitFormData();
+      } else {
       console.error('All fields, including photos and biography, are required.');
     }
   }         

@@ -3,6 +3,7 @@ from flask_cors import CORS
 from decouple import config
 from db import mongo, socketio
 from services.ai_service import initialize_services
+from services.s3_service import S3Service
 
 
 def create_app():
@@ -10,12 +11,25 @@ def create_app():
     # Load configurations from .env
     app.config["MONGO_URI"] = config("MONGO_URI")
     app.config["SECRET_KEY"] = config("SECRET_KEY")
+    app.config["S3_BUCKET_NAME"] = config("S3_BUCKET_NAME")
+    app.config["AWS_REGION"] = config("AWS_REGION")
+    app.config["AWS_ACCESS_KEY"] = config("AWS_ACCESS_KEY")
+    app.config["AWS_SECRET_KEY"] = config("AWS_SECRET_KEY")
     print("MongoDB URI:", app.config["MONGO_URI"])
 
     # Initialize Flask extensions
     mongo.init_app(app)
     socketio.init_app(app)
     CORS(app)
+
+
+    app.s3_service = S3Service(
+        bucket_name=app.config["S3_BUCKET_NAME"],
+        region=app.config["AWS_REGION"],
+        access_key=app.config["AWS_ACCESS_KEY"],
+        secret_key=app.config["AWS_SECRET_KEY"],
+    )
+
 
     with app.app_context():
         print("Initializing AI services...")

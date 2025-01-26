@@ -8,18 +8,26 @@ import { environment } from '../../environment';
   providedIn: 'root',
 })
 export class ProfileService {
-  private baseUrl: string = environment.serverUrl + '/api/users';
+  private baseUrl: string = environment.serverUrl + '/users';
   public user$: BehaviorSubject<AppUser | null> =
     new BehaviorSubject<AppUser | null>(null);
 
   constructor(private http: HttpClient) {}
 
-  public validateUser(idCard: File, faceImage: File): Observable<any> {
+  public validateUser(userId: string, idCard: File, faceImage: File): Observable<any> {
     const formData = new FormData();
     formData.append('id_card', idCard);
     formData.append('face_image', faceImage);
 
-    return this.http.post<any>(`${this.baseUrl}/validate`, formData);
+    return this.http.post<any>(`${this.baseUrl}/${userId}`, formData);
+  }
+
+  public saveImages(userId: string, idCard: File, faceImage: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('id_photo', idCard);
+    formData.append('person_photo', faceImage);
+
+    return this.http.post<any>(`${this.baseUrl}/upload/${userId}`, formData);
   }
 
 
