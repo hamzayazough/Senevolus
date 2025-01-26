@@ -1,44 +1,60 @@
-<div *ngIf="visible==true" class="task-container">
-    
+<div *ngIf="visible" class="task-container">
+    <!-- Top Row -->
     <div class="top-row">
-        
-        <!-- Task Type (top left) -->
-        <div class="task-type">{{ taskType }}: {{title}}</div>
-        
-        <!-- Creation and Due Date together (top right) -->
-        <div class="dates">
-          <div class="date-creation">Created: {{ creationDate | date:'shortDate' }}</div>
-          <div class="date-due">Due: {{ task_date | date:'shortDate' }}</div>
-          <div class="duration">Duration: {{this.duration}} hours</div>
-        </div>
-    
+      <!-- Task Type with Image -->
+      <div class="task-type">
+        <img
+          *ngIf="taskType === 'physical'"
+          class="logo"
+          src="assets/images/muscle_logo.jpg"
+          alt="Physical Task"
+        />
+        <img
+          *ngIf="taskType === 'moral'"
+          class="logo"
+          src="assets/images/brain_logo.jpg"
+          alt="Moral Task"
+        />
+        <span class="task-title">{{ title }}</span>
+      </div>
+  
+      <!-- Dates -->
+      <div class="dates">
+        <div class="date-creation">Created: {{ creationDate | date: 'shortDate' }}</div>
+        <div class="date-due">Due: {{ task_date | date: 'shortDate' }}</div>
+        <div class="duration">Duration: {{ duration }} hours</div>
+      </div>
     </div>
-
-    <!-- Description (centered, starting from left) -->
+  
+    <!-- Description -->
     <div class="description">{{ description }}</div>
   
+    <!-- Bottom Row -->
     <div class="bottom-row">
-
-        <!-- Distance (middle right) -->
-        <div class="distance">{{ distance }}</div>
-        <div class="bottom-right">
-            <!-- Status with dynamic color -->
-            <div *ngIf="this.taskStatus == 'accepted'" class="chat-icon" (click)="toggleChat()">CHAT</div>
-            <div *ngIf="this.taskStatus == 'published' && this.userType == 'elder'" class="trash-icon">TRASH</div>
-            <div *ngIf="this.taskStatus == 'published' && this.userType != 'elder'"   [ngClass]="{
-                'status': true,
-                'status-active': true
-            }">
-          {{ taskStatus == 'published' ? 'APPLY' : 'CANT APPLY' }}>
+      <div class="distance">{{ distance }}</div>
+      <div class="bottom-right">
+        <!-- Chat Icon -->
+        <div *ngIf="taskStatus === 'accepted'" class="chat-icon" (click)="toggleChat()">
+          CHAT
         </div>
-            <div *ngIf="this.taskStatus == 'accepted' && this.userType != 'elder'"   [ngClass]="{
-                'status': true,
-                'status-active': true
-            }">
-            Finish Task
-            </div>
+        <!-- Trash Icon -->
+        <div *ngIf="taskStatus === 'published' && userType === 'elder'" class="trash-icon">
+          <i class="fas fa-trash"></i>
+        </div>
+        <!-- Apply Button -->
+        <div
+          *ngIf="taskStatus === 'published' && userType !== 'elder'"
+          class="status status-active"
+        >
+          {{ taskStatus === 'published' ? 'APPLY' : 'CANT APPLY' }}
+        </div>
+        <!-- Finish Task Button -->
+        <div
+          *ngIf="taskStatus === 'accepted' && userType !== 'elder'"
+          class="status status-active"
+        >
+          Finish Task
+        </div>
+      </div>
     </div>
-
-    </div>
-    
-</div>
+  </div>
