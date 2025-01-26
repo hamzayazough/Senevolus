@@ -3,7 +3,7 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -14,10 +14,10 @@ import { TaskComponent } from './common/task/task.component';
 import { ListTaskComponent } from './common/list-task/list-task.component';
 import { ElderTaskPageComponent } from './pages/elder-task-page/elder-task-page.component';
 import { ChatComponent } from './common/chat/chat.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { ChatService } from './services/chat-service/chat-service.service';
 import { VolunteerTaskPageComponent } from './pages/volunteer-task-page/volunteer-task-page.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -27,12 +27,16 @@ import { CreateTaskComponent } from './pages/create-task/create-task.component';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { environment } from '../environment';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { SocketService } from './services/socket.service';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { AddressAutocompleteComponent } from './common/address-autocomplete/address-autocomplete.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
 
 
 const firebaseApp = initializeApp(environment.firebaseConfig);
@@ -61,6 +65,9 @@ const auth = getAuth(firebaseApp);
     FormsModule,
     MatTabsModule,
     MatSidenavModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -68,8 +75,9 @@ const auth = getAuth(firebaseApp);
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withInterceptorsFromDi(), withFetch()),
     ChatService,
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptorsFromDi()),
     SocketService,
     provideAnimationsAsync(),
     { provide: 'FIREBASE_APP', useValue: firebaseApp },

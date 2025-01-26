@@ -1,0 +1,21 @@
+<div class="address-autocomplete-container">
+  <label>Address</label>
+  <input
+    matInput
+    [formControl]="addressControl"
+    placeholder="Enter Address"
+    autocomplete="off"
+    (keydown.enter)="$event.preventDefault()"
+    (focus)="showSuggestions()"
+    (blur)="hideSuggestions()"
+  />
+
+  <ul *ngIf="suggestions.length" class="suggestions-list">
+    <li
+      *ngFor="let suggestion of suggestions"
+      (click)="selectSuggestion(suggestion)"
+    >
+      {{ suggestion.place_name }}
+    </li>
+  </ul>
+</div>
