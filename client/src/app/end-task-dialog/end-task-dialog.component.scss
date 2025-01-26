@@ -4,8 +4,14 @@ div {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    width: 100%; /* Take up the full width of the window */
+    max-width: none; /* Remove any max-width constraints */
+    margin: 0; /* Remove margin to ensure it takes full width */
+    height: 100vh; /* Make the container take the full height of the window */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 h2 {
@@ -14,14 +20,23 @@ h2 {
     color: #333;
 }
 
-/* Video and Canvas */
-video {
-    width: 100%;
-    max-width: 350px;
+/* Video and Image */
+video, .captured-image {
+    width: 100%; /* Take up the full width of the container */
+    max-width: 100%; /* Ensure they don't exceed the container width */
     border-radius: 10px;
-    background-color: #000;
+    background-color: #000; /* Black background for video */
+    display: block; /* Ensure they are block elements */
+    margin: 0 auto; /* Center them horizontally */
 }
 
+/* Make the video element take the full width and height */
+video {
+    height: 70vh; /* Adjust height to fit the window */
+    object-fit: cover; /* Ensure the video covers the entire area */
+}
+
+/* Canvas */
 canvas {
     display: none; /* Hidden until you capture the image */
 }
